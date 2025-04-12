@@ -1,0 +1,217 @@
+.dashboardContainer {
+  display: flex;
+  width: 100%;
+  min-height: 100vh; /* Đổi từ height: 100vh để tránh xung đột cuộn */
+  overflow: hidden;  /* Ngăn cuộn phụ */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #c8f7f7;
+  height: 100vh;
+  flex-shrink: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 15px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.menu li:hover {
+  transform: scale(1.05);
+  background-color: rgb(201, 166, 250);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.menu li.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.menu li svg {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu li:hover svg {
+  transform: scale(1.1);
+  color: #007bff;
+}
+
+.menu li.active svg {
+  color: white;
+}
+
+.menu li:first-child {
+  color: purple;
+  font-weight: bold;
+}
+
+.mainContent {
+  flex: 1;
+  overflow-y: auto;  /* ✅ Cuộn chỉ ở nội dung dashboard */
+  height: 100vh;
+  padding: 20px 30px;
+  box-sizing: border-box;
+}
+
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  background: black;
+  padding: 5px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+.avatar {
+  margin-right: 10px;
+}
+
+.logoutButton {
+  background-color: #ffff88;
+  color: green;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 10px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.pageTitle {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 5px; /* Dịch lên gần sát phía trên */
+  margin-bottom: 20px;
+  color: black;
+}
+
+
+.statCards {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.cardTitle {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.orange {
+  background-color: #ffefd5;
+  color: #e65100;
+}
+
+.blue {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.red {
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+.green {
+  background-color: #e0f7fa;
+  color: #009688;
+}
+
+.charts {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.chartBox {
+  flex: 1;
+  background-color: #f8f9fa;
+  border-radius: 25px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.chartBox h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: black;
+}
+
+.chartCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.selectGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
