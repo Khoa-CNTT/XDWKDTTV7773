@@ -234,7 +234,7 @@ export default function InventoryPage() {
                    <th>Giá nhập</th>
                    <th>Số lượng</th>
                    <th>Size</th>
-                   <th>Trạng Thái</th>
+                   <th>Trạng thái</th>
                    <th></th>
                  </tr>
                </thead>

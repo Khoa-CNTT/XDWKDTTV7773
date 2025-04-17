@@ -32,7 +32,7 @@ export default function Header() {
             <FaUserAlt style={{ color: "white" }} />
           </div>
           <div className="user-text">
-            <div className="user-name">Nguyen nam</div>
+            <div className="user-name">Nguyen Nam</div>
             <div className="user-role">Dev Admin</div>
           </div>
         </button>
