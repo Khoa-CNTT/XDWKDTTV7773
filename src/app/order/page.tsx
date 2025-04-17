@@ -299,7 +299,7 @@ const handleAddOrder = (e: React.FormEvent) => {
                       resetForm();
                     }}
                   >
-                    Hủy
+                    HỦY
                   </button>
                 </div>
               </form>

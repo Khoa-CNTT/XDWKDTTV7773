@@ -27,7 +27,7 @@ const menuItems = [
   { icon: <FaList />, text: "Quản lý danh mục", path: "/category" },
   { icon: <FaMoneyBill />, text: "Quản lý thanh toán", path: "#" },
   { icon: <FaBox />, text: "Quản lý đơn hàng", path: "order" },
-  { icon: <FaSearch />, text: "Tìm kiếm", path: "#" },
+  { icon: <FaSearch />, text: "Tìm kiếm", path: "" },
   { icon: <FaBullhorn />, text: "Marketing", path: "#" },
   { icon: <FaChartBar />, text: "Thống kê", path: "#" },
 ];

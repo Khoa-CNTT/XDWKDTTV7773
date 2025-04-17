@@ -301,7 +301,7 @@ export default function AccountManagement() {
                     onChange={handleFormChange}
                     required
                   >
-                    <option value="">-- Chọn quyền --</option>
+                    <option value="">-- Chọn Quyền --</option>
                     <option value="Admin">Admin</option>
                     <option value="Nhân viên">Nhân viên</option>
                   </select>
