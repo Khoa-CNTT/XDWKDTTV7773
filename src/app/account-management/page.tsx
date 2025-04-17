@@ -18,6 +18,15 @@ export default function AccountManagement() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingAccount, setEditingAccount] = useState<Account | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [toastMsg, setToastMsg] = useState("");
+  const [showToast, setShowToast] = useState(false);
+
+  const showToastMessage = (msg: string) => {
+    setToastMsg(msg);
+    setShowToast(false); // Reset animation
+    setTimeout(() => setShowToast(true), 10); // Delay 10ms để trigger re-render & animation lại
+  };
+
 
   const [accounts, setAccounts] = useState<Account[]>([
     {
@@ -35,6 +44,14 @@ export default function AccountManagement() {
       email: "b.tran@example.com",
       role: "Nhân viên",
       status: "Khóa",
+    },
+    {
+      id: 3,
+      name: "Lê Thị C",
+      phone: "0903456789",
+      email: "c.le@example.com",
+      role: "Khách hàng",
+      status: "Hoạt động",
     },
   ]);
 
@@ -88,17 +105,23 @@ export default function AccountManagement() {
     setIsEditing(false);
   };
 
-  const handleOpenEdit = (account: Account) => {
-    setEditingAccount(account);
-    setFormData({
-      name: account.name,
-      phone: account.phone,
-      email: account.email,
-      role: account.role,
-      status: account.status,
-    });
-    setIsEditing(true);
-  };
+ const handleOpenEdit = (account: Account) => {
+   if (account.role === "Khách hàng") {
+     showToastMessage("🚫 Bạn không thể cập nhật thông tin khách hàng!");
+     return;
+   }
+   setEditingAccount(account);
+   setFormData({
+     name: account.name,
+     phone: account.phone,
+     email: account.email,
+     role: account.role,
+     status: account.status,
+   });
+   setIsEditing(true);
+ };
+
+
 
   const handleToggleStatus = (id: number) => {
     const target = accounts.find((acc) => acc.id === id);
@@ -117,12 +140,13 @@ export default function AccountManagement() {
     acc.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  
   return (
     <div className={styles.container}>
       <Header />
       <Sidebar />
       <div className={styles.content}>
-        <h1 className={styles.title}>Quản Lý Tài Khoản</h1>
+        <h1 className={styles.title}>Quản Lý Tài Khoản(Admin)</h1>
 
         <div className={styles.actionBar}>
           <div className={styles.leftActions}>
@@ -138,7 +162,6 @@ export default function AccountManagement() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className={styles.searchInput}
             />
-            <button className={styles.searchBtn}>Tìm kiếm</button>
           </div>
         </div>
 
@@ -151,7 +174,7 @@ export default function AccountManagement() {
               <th>Số điện thoại</th>
               <th>Quyền</th>
               <th>Trạng thái</th>
-              <th>Hành động</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -161,7 +184,20 @@ export default function AccountManagement() {
                 <td>{acc.name}</td>
                 <td>{acc.email}</td>
                 <td>{acc.phone}</td>
-                <td>{acc.role}</td>
+                <td>
+                  <span
+                    className={
+                      acc.role === "Admin"
+                        ? styles.roleAdmin
+                        : acc.role === "Nhân viên"
+                          ? styles.roleStaff
+                          : styles.roleCustomer
+                    }
+                  >
+                    {acc.role}
+                  </span>
+                </td>
+
                 <td>
                   {acc.status === "Hoạt động" ? (
                     <span className={styles.activeStatus}>🟢 Hoạt động</span>
@@ -184,9 +220,15 @@ export default function AccountManagement() {
                   </button>
                   <button
                     className={styles.deleteBtn}
-                    onClick={() =>
-                      setAccounts(accounts.filter((a) => a.id !== acc.id))
-                    }
+                    onClick={() => {
+                      if (acc.role === "Khách hàng") {
+                        showToastMessage(
+                          "⚠️ Bạn chỉ xóa tài khoản này sau 1 năm không hoạt động!"
+                        );
+                      } else {
+                        setAccounts(accounts.filter((a) => a.id !== acc.id));
+                      }
+                    }}
                   >
                     Xóa
                   </button>
@@ -207,7 +249,6 @@ export default function AccountManagement() {
                 {/* ID chỉ hiện khi cập nhật */}
                 {isEditing && editingAccount && (
                   <div className={styles.formGroup}>
-                    <label>ID</label>
                     <input
                       type="text"
                       value={editingAccount.id}
@@ -218,7 +259,6 @@ export default function AccountManagement() {
                 )}
 
                 <div className={styles.formGroup}>
-                  <label>Tên đăng nhập</label>
                   <input
                     name="name"
                     type="text"
@@ -230,7 +270,7 @@ export default function AccountManagement() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>Email</label>
+
                   <input
                     name="email"
                     type="email"
@@ -242,7 +282,7 @@ export default function AccountManagement() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>Số điện thoại</label>
+
                   <input
                     name="phone"
                     type="text"
@@ -254,7 +294,7 @@ export default function AccountManagement() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>Quyền</label>
+
                   <select
                     name="role"
                     value={formData.role}
@@ -295,6 +335,8 @@ export default function AccountManagement() {
           </div>
         )}
       </div>
+
+      {showToast && <div className={styles.toast}>{toastMsg}</div>}
     </div>
   );
 }
