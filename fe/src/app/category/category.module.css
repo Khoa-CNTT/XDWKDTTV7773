@@ -364,7 +364,7 @@
 }
 
 .cancelCategoryBtn:hover {
-  background-color: #dc2626;      
+  background-color:rgb(222, 32, 32);      
 }
 
 .cancelCategoryBtn:disabled {

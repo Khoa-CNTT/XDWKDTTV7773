@@ -461,7 +461,7 @@ const handleCategoryChange = (
                   value={newCategory.classification}
                   onChange={handleCategoryChange}
                 >
-                  <option value="">Chọn danh mục</option>
+                  <option value="">Chọn danh mụC</option>
                   {Array.from(
                     new Set(
                       categories.map((category) => category.classification)
