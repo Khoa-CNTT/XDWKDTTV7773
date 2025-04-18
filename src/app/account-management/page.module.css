@@ -10,6 +10,13 @@
   flex: 1;
   padding: 20px 40px;
   background-color: #fefefe;
+  position: absolute;
+  top: 20px; /* tùy chỉnh theo chiều cao Header */
+  left: 220px; /* tùy chỉnh theo chiều rộng Sidebar */
+  right: 0;
+  bottom: 0;
+  overflow-y: auto; /* Cho phép cuộn dọc */
+  padding: 20px;
 }
 
 .title {

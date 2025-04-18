@@ -30,6 +30,7 @@ const menuItems = [
   { icon: <FaSearch />, text: "Tìm kiếm", path: "" },
   { icon: <FaBullhorn />, text: "Marketing", path: "" },
   { icon: <FaChartBar />, text: "Thống kê", path: "#" },
+  
 ];
 
 export default function Sidebar() {

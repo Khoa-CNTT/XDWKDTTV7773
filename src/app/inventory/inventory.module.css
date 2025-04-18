@@ -8,39 +8,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px 0px 20px 20px;
-}
-
-.pageWrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Chiều cao toàn màn hình */
-}
-
-.contentWrapper {
-  flex: 1;
-  overflow-y: auto;
   padding: 20px;
-  background-color: #f8f8f8;
-
-  /* Scrollbar đẹp */
-  scrollbar-width: thin;
-  scrollbar-color: #c0c0c0 transparent;
-}
-
-.contentWrapper::-webkit-scrollbar {
-  width: 15px;
-}
-
-.contentWrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.contentWrapper::-webkit-scrollbar-thumb {
-  background-color: #bbb;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  background-clip: content-box;
+  position: absolute;
+  top: 20px; /* tùy chỉnh theo chiều cao Header */
+  left: 220px; /* tùy chỉnh theo chiều rộng Sidebar */
+  right: 0;
+  bottom: 0;
+  overflow-y: auto; /* Cho phép cuộn dọc */
+  padding: 20px;
 }
 
 .title {
@@ -64,7 +39,7 @@
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-left: -20px;
+  margin-left: 5px;
 }
 
 .formWrapper h3 {
