@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import "./Sidebar.css";
 import {
-  FaSearch,
+
   FaChartBar,
   FaBullhorn,
 
@@ -18,19 +18,14 @@ import {
 
 const menuItems = [
   { icon: <FaTachometerAlt />, text: "Dashboard", path: "/dashboard" },
-  {
-    icon: <FaUserCog />,
-    text: "Quản lý tài khoản",
-    path: "/account-management",
-  },
+  { icon: <FaUserCog />,text: "Quản lý tài khoản",path: "/account-management" },
   { icon: <FaWarehouse />, text: "Quản lý kho", path: "/inventory" },
   { icon: <FaList />, text: "Quản lý danh mục", path: "/category" },
-  { icon: <FaMoneyBill />, text: "Quản lý thanh toán", path: "#" },
-  { icon: <FaBox />, text: "Quản lý đơn hàng", path: "order" },
-  { icon: <FaSearch />, text: "Tìm kiếm", path: "" },
-  { icon: <FaBullhorn />, text: "Marketing", path: "" },
-  { icon: <FaChartBar />, text: "Thống kê", path: "#" },
-  
+  { icon: <FaMoneyBill />, text: "Quản lý thanh toán", path: "/payment" },
+  { icon: <FaBox />, text: "Quản lý đơn hàng", path: "/order" },
+  { icon: <FaBullhorn />, text: "Marketing", path: "/marketing" },
+  { icon: <FaChartBar />, text: "Thống kê", path: "/statistic" },
+
 ];
 
 export default function Sidebar() {
