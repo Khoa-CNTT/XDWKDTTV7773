@@ -1,7 +1,7 @@
 "use client";
 
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import Sidebar from "@admin/components/Sidebar";
+import Header from "@admin/components/Header";
 import styles from "./dashboard.module.css";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useState, useMemo } from "react";

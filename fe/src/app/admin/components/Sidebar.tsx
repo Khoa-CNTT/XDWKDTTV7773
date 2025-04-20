@@ -17,15 +17,18 @@ import {
 } from "react-icons/fa";
 
 const menuItems = [
-  { icon: <FaTachometerAlt />, text: "Dashboard", path: "/dashboard" },
-  { icon: <FaUserCog />,text: "Quản lý tài khoản",path: "/account-management" },
-  { icon: <FaWarehouse />, text: "Quản lý kho", path: "/inventory" },
-  { icon: <FaList />, text: "Quản lý danh mục", path: "/category" },
-  { icon: <FaMoneyBill />, text: "Quản lý thanh toán", path: "/payment" },
-  { icon: <FaBox />, text: "Quản lý đơn hàng", path: "/order" },
-  { icon: <FaBullhorn />, text: "Marketing", path: "/marketing" },
-  { icon: <FaChartBar />, text: "Thống kê", path: "/statistic" },
-
+  { icon: <FaTachometerAlt />, text: "Dashboard", path: "/admin/dashboard" },
+  {
+    icon: <FaUserCog />,
+    text: "Quản lý tài khoản",
+    path: "/admin/account-management",
+  },
+  { icon: <FaWarehouse />, text: "Quản lý kho", path: "/admin/inventory" },
+  { icon: <FaList />, text: "Quản lý danh mục", path: "/admin/category" },
+  { icon: <FaMoneyBill />, text: "Quản lý thanh toán", path: "/admin/payment" },
+  { icon: <FaBox />, text: "Quản lý đơn hàng", path: "/admin/order" },
+  { icon: <FaBullhorn />, text: "Marketing", path: "/admin/marketing" },
+  { icon: <FaChartBar />, text: "Thống kê", path: "/admin/statistic" },
 ];
 
 export default function Sidebar() {

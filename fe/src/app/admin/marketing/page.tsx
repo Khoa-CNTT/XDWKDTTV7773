@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./marketing.module.css";
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import Sidebar from "@admin/components/Sidebar";
+import Header from "@admin/components/Header";
+
 
 type Discount = {
   id: number;

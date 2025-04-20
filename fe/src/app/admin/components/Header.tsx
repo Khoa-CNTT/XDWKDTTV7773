@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaUserAlt } from "react-icons/fa";
-import AccountModal from "@/components/AccountModal";
+import AccountModal from "@admin/components/AccountModal";
 import "./Header.css";
 
 export default function Header() {
