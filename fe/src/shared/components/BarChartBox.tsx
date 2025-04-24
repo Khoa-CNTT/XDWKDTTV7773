@@ -1,5 +1,5 @@
 "use client";
-
+import "./BarChartBox.module.css";
 import {
   BarChart,
   Bar,

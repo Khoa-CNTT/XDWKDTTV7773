@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import Sidebar from "@admin/components/Sidebar";
-import Header from "@admin/components/Header";
+import Sidebar from "@shared/components/Sidebar";
+import Header from "@shared/components/Header";
 import dynamic from "next/dynamic";
 
 import styles from "./statistic.module.css";
 
-const PieChartBox = dynamic(() => import("@admin/components/PieChartBox"), {
+const PieChartBox = dynamic(() => import("@shared/components/PieChartBox"), {
   ssr: false,
 });
-const BarChartBox = dynamic(() => import("@admin/components/BarChartBox"), {
+const BarChartBox = dynamic(() => import("@shared/components/BarChartBox"), {
   ssr: false,
 });
 

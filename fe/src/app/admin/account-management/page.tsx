@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
 import styles from "./page.module.css";
-import Sidebar from "@admin/components/Sidebar";
-import Header from "@admin/components/Header";
-
+import Sidebar from "@shared/components/Sidebar";
+import Header from "@shared/components/Header";
 
 interface Account {
   id: number;
@@ -35,7 +34,7 @@ export default function AccountManagement() {
       name: "Nguyễn Văn A",
       phone: "0901234567",
       email: "a.nguyen@example.com",
-      role: "Quản lý",
+      role: "Admin",
       status: "Hoạt động",
     },
     {
@@ -54,62 +53,7 @@ export default function AccountManagement() {
       role: "Khách hàng",
       status: "Hoạt động",
     },
-    {
-      id: 4,
-      name: "Lê Thị C",
-      phone: "0903456789",
-      email: "c.le@example.com",
-      role: "Khách hàng",
-      status: "Hoạt động",
-    },
-    {
-      id: 5,
-      name: "Lê Thị C",
-      phone: "0903456789",
-      email: "c.le@example.com",
-      role: "Khách hàng",
-      status: "Hoạt động",
-    },
-    {
-      id: 6,
-      name: "Lê Thị C",
-      phone: "0903456789",
-      email: "c.le@example.com",
-      role: "Khách hàng",
-      status: "Hoạt động",
-    },
-    {
-      id: 7,
-      name: "Lê Thị C",
-      phone: "0903456789",
-      email: "c.le@example.com",
-      role: "Khách hàng",
-      status: "Hoạt động",
-    },
-    {
-      id: 8,
-      name: "Lê Thị C",
-      phone: "0903456789",
-      email: "c.le@example.com",
-      role: "Khách hàng",
-      status: "Hoạt động",
-    },
-    {
-      id: 9,
-      name: "Lê Thị C",
-      phone: "0903456789",
-      email: "c.le@example.com",
-      role: "Khách hàng",
-      status: "Hoạt động",
-    },
-    {
-      id: 10,
-      name: "Lê Thị C",
-      phone: "0903456789",
-      email: "c.le@example.com",
-      role: "Khách hàng",
-      status: "Hoạt động",
-    },
+
   ]);
 
   const [formData, setFormData] = useState({
@@ -162,22 +106,21 @@ export default function AccountManagement() {
     setIsEditing(false);
   };
 
- const handleOpenEdit = (account: Account) => {
-   if (account.role === "Khách hàng") {
-     showToastMessage("🚫 Bạn không thể cập nhật thông tin khách hàng!");
-     return;
-   }
-   setEditingAccount(account);
-   setFormData({
-     name: account.name,
-     phone: account.phone,
-     email: account.email,
-     role: account.role,
-     status: account.status,
-   });
-   setIsEditing(true);
- };
-
+  const handleOpenEdit = (account: Account) => {
+    if (account.role === "Khách hàng") {
+      showToastMessage("🚫 Bạn không thể cập nhật thông tin khách hàng!");
+      return;
+    }
+    setEditingAccount(account);
+    setFormData({
+      name: account.name,
+      phone: account.phone,
+      email: account.email,
+      role: account.role,
+      status: account.status,
+    });
+    setIsEditing(true);
+  };
 
 
   const handleToggleStatus = (id: number) => {
@@ -197,7 +140,7 @@ export default function AccountManagement() {
     acc.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  
+
   return (
     <div className={styles.container}>
       <Header />
@@ -229,7 +172,7 @@ export default function AccountManagement() {
               <th>Tên Đăng Nhập</th>
               <th>Email</th>
               <th>Số điện thoại</th>
-              <th>Quyền</th>
+              <th>Vai trò</th>
               <th>Trạng thái</th>
               <th></th>
             </tr>
@@ -358,7 +301,7 @@ export default function AccountManagement() {
                     onChange={handleFormChange}
                     required
                   >
-                    <option value="">-- Chọn quyền --</option>
+                    <option value="">-- Chọn vai trò --</option>
                     <option value="Admin">Admin</option>
                     <option value="Nhân viên">Nhân viên</option>
                   </select>

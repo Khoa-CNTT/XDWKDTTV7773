@@ -1,17 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaUserAlt } from "react-icons/fa";
-import AccountModal from "@admin/components/AccountModal";
+import AccountModal from "@shared/components/AccountModal";
 import "./Header.css";
 
 export default function Header() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+
+  useEffect(() => {
+    const name = localStorage.getItem("userName") || "Không rõ";
+    const role = localStorage.getItem("userRole") || "Không rõ";
+    setUserName(name);
+    setUserRole(role === "admin" ? "Quản trị viên" : "Nhân viên");
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
     router.push("/login");
   };
 
@@ -26,14 +37,13 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-actions">
-        {/* Toàn bộ này là một nút */}
         <button className="user-info-button" onClick={handleUserClick}>
           <div className="user-icon">
             <FaUserAlt style={{ color: "white" }} />
           </div>
           <div className="user-text">
-            <div className="user-name">Nguyen Nam</div>
-            <div className="user-role">Dev Admin</div>
+            <div className="user-name">{userName}</div>
+            <div className="user-role">{userRole}</div>
           </div>
         </button>
 

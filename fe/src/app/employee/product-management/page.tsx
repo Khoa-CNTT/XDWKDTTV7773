@@ -4,8 +4,7 @@ import { useState } from "react";
 import Sidebar from "@shared/components/Sidebar";
 import Header from "@shared/components/Header";
 
-import styles from "./category.module.css";
-
+import styles from "./product-management.module.css";
 
 type Product = {
   id: number;
@@ -17,7 +16,6 @@ type Product = {
   size: string;
   category: string;
 };
-
 
 export default function CategoryPage() {
   const [products, setProducts] = useState<Product[]>([
@@ -57,63 +55,10 @@ export default function CategoryPage() {
     category: "",
   });
 
-  const [categories, setCategories] = useState([
-    { id: 1975, name: "Vest nam", classification: "HÀNG NAM" },
-    { id: 2025, name: "Váy Dài", classification: "HÀNG NỮ" },
-    { id: 3975, name: "Áo Thun", classification: "HÀNG NỮ" },
-    { id: 4025, name: "Quần Jeans", classification: "HÀNG MỚI" },
-  ]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
-  
-  
-  const [newCategory, setNewCategory] = useState({
-    name: "",
-    classification: "",
-    type: "",
-  });
 
-
-const handleAddCategory = () => {
-   if (!newCategory.name.trim() || !newCategory.classification.trim()) {
-     alert("Vui lòng nhập đầy đủ tên sản phẩm và danh mục.");
-     return;
-   }
-  const newItem = {
-    id: Math.floor(Math.random() * 1000000),
-    name: newCategory.name,
-    classification: newCategory.classification,
-    type: newCategory.type,
-  };
-
-  setCategories((prev) => [...prev, newItem]);
-
-  // Reset form
-  setNewCategory({ name: "", classification: "", type: "" });
-  setShowAddCategoryModal(false);
-};
-
-
-const handleCategoryChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-) => {
-  const { name, value } = e.target;
-
-  setNewCategory((prevCategory) => ({
-    ...prevCategory,
-    [name]: value, 
-  }));
-};
-
-
-
-  const handleDeleteCategory = (id: number) => {
-    setCategories((prevCategories) =>
-      prevCategories.filter((category) => category.id !== id)
-    );
-  };
 
 
   const handleChange = (
@@ -201,16 +146,6 @@ const handleCategoryChange = (
       <div className={styles.content}>
         <Header />
         <h2 className={styles.title}>SẢN PHẨM</h2>
-
-        {/* Nút Thêm Danh Mục */}
-        <div className={styles.addCategoryBtnWrapper}>
-          <button
-            className={styles.addCategoryBtn}
-            onClick={() => setShowAddCategoryModal(true)}
-          >
-            + Thêm danh mục mới
-          </button>
-        </div>
 
         {/* Form thêm sản phẩm */}
         <div className={styles.mainContent}>
@@ -429,109 +364,6 @@ const handleCategoryChange = (
             </div>
           </div>
         )}
-
-        {/* Modal Thêm danh mục sản phẩm mới */}
-        {showAddCategoryModal && (
-          <div className={styles.modalOverlay}>
-            <div className={styles.modalContent}>
-              <h3>THÊM DANH MỤC SẢN PHẨM</h3>
-
-              {/* Form thêm danh mục */}
-              <div className={styles.addCategoryForm}>
-                {/* Khung nhập tên sản phẩm mới */}
-                <input
-                  type="text"
-                  name="name"
-                  value={newCategory.name}
-                  onChange={handleCategoryChange}
-                  placeholder="Tên sản phẩm mới"
-                />
-
-                {/* Khung nhập danh mục mới */}
-                <input
-                  type="text"
-                  name="classification"
-                  value={newCategory.classification}
-                  onChange={handleCategoryChange}
-                  placeholder="Tên danh mục mới"
-                />
-
-                {/* Khung thả xuống để chọn tất cả danh mục */}
-                <select
-                  name="classification"
-                  value={newCategory.classification}
-                  onChange={handleCategoryChange}
-                >
-                  <option value="">Chọn danh mụC</option>
-                  {Array.from(
-                    new Set(
-                      categories.map((category) => category.classification)
-                    )
-                  ).map((uniqueClassification, index) => (
-                    <option key={index} value={uniqueClassification}>
-                      {uniqueClassification}
-                    </option>
-                  ))}
-                </select>
-
-                {/* Nút thêm */}
-                <div className={styles.buttonGroup}>
-                  <button
-                    onClick={handleAddCategory}
-                    className={styles.addCategoryBtn}
-                    disabled={
-                      !newCategory.name.trim() ||
-                      !newCategory.classification.trim()
-                    }
-                  >
-                    Thêm
-                  </button>
-
-                  {/* Nút đóng */}
-                  <button
-                    onClick={() => setShowAddCategoryModal(false)}
-                    className={styles.cancelCategoryBtn}
-                  >
-                    Đóng
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* BẢNG DANH SÁCH DANH MỤC*/}
-        <div className={styles.categoryList}>
-          <h4>Danh sách danh mục:</h4>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Danh Mục</th>
-                <th>Sản Phẩm</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {categories.map((category) => (
-                <tr key={category.id}>
-                  <td>{category.id}</td>
-                  <td>{category.classification}</td>
-                  <td>{category.name}</td>
-                  <td>
-                    <button
-                      onClick={() => handleDeleteCategory(category.id)}
-                      className={styles.deleteCategoryBtn}
-                    >
-                      Xóa
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   );

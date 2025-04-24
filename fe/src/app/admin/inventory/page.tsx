@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import Sidebar from "@admin/components/Sidebar";
-import Header from "@admin/components/Header";
+import Sidebar from "@shared/components/Sidebar";
+import Header from "@shared/components/Header";
 import styles from "./inventory.module.css";
 import { FaHistory } from "react-icons/fa";
 

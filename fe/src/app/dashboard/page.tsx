@@ -1,10 +1,10 @@
 "use client";
 
-import Sidebar from "@admin/components/Sidebar";
-import Header from "@admin/components/Header";
+import Sidebar from "@shared/components/Sidebar";
+import Header from "@shared/components/Header";
 import styles from "./dashboard.module.css";
 import DatePicker, { DateObject } from "react-multi-date-picker";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -31,13 +31,21 @@ const rawData = [
   { date: "30/03/2025", visits: 95, storeVisits: 55 },
   { date: "31/03/2025", visits: 105, storeVisits: 65 },
   { date: "01/04/2025", visits: 88, storeVisits: 45 },
-  // 14 trở đi bị thiếu — ta sẽ thêm mặc định 0 nếu không có
 ];
 
 export default function DashboardPage() {
   const [startDate, setStartDate] = useState<DateObject>(
     new DateObject({ year: 2025, month: 3, day: 1 })
   );
+
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("userRole");
+    if (storedRole) {
+      setRole(storedRole);
+    }
+  }, []);
 
   const selectedDates = useMemo(() => {
     return Array.from({ length: 7 }, (_, i) =>
@@ -52,7 +60,6 @@ export default function DashboardPage() {
   };
 
   const filteredData = useMemo(() => {
-    // Tạo map từ dữ liệu gốc
     const rawDataMap = new Map<
       string,
       { visits: number; storeVisits: number }
@@ -64,7 +71,6 @@ export default function DashboardPage() {
       });
     });
 
-    // Duyệt qua 7 ngày liên tiếp, nếu không có dữ liệu thì cho visits = 0
     return selectedDates.map((d) => {
       const formatted = d.format("DD/MM/YYYY");
       const data = rawDataMap.get(formatted);
@@ -140,6 +146,20 @@ export default function DashboardPage() {
               </LineChart>
             </ResponsiveContainer>
           </div>
+
+          {role === "admin" && (
+            <div className={styles.roleSection}>
+              <h3>Phần dành riêng cho quản trị viên</h3>
+              {/* Thêm widget / nội dung cho admin tại đây */}
+            </div>
+          )}
+
+          {role === "employee" && (
+            <div className={styles.roleSection}>
+              <h3>Phần dành riêng cho nhân viên</h3>
+              {/* Thêm widget / nội dung cho employee tại đây */}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
 
 .content {
   flex: 1;
-  padding: 20px 40px;
+  padding: 20px 20px;
   background-color: #fefefe;
   position: absolute;
   top: 20px; /* tùy chỉnh theo chiều cao Header */
@@ -266,3 +266,17 @@
   }
 }
 
+.addButton {
+  margin: 10px 0 20px 0;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}

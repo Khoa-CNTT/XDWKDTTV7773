@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import styles from "./order.module.css";
-import Sidebar from "@admin/components/Sidebar";
-import Header from "@admin/components/Header";
+import Sidebar from "@shared/components/Sidebar";
+import Header from "@shared/components/Header";
+
 
 type Order = {
   id: number;
