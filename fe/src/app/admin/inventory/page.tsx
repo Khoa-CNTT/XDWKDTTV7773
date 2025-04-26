@@ -12,40 +12,51 @@ type Product = {
   quantity: number;
   price: string;
   size: string;
+  material: string;
+  color: string;
   status: string;
 };
 
+
 export default function InventoryPage() {
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      name: "Áo thun trắng",
-      supplier: "CÔNG TY A",
-      quantity: 120,
-      price: "200.000",
-      size: "XL",
-      status: "Đang bán",
-    },
-    {
-      id: 2,
-      name: "Quần jean xanh",
-      supplier: "CÔNG TY A",
-      quantity: 50,
-      price: "200.000",
-      size: "XL",
-      status: "Đang bán",
-    },
-  ]);
+ const [products, setProducts] = useState<Product[]>([
+   {
+     id: 1,
+     name: "Áo thun trắng",
+     supplier: "CÔNG TY A",
+     quantity: 120,
+     price: "200.000",
+     size: "XL",
+     material: "Cotton",
+     color: "Trắng",
+     status: "Đang bán",
+   },
+   {
+     id: 2,
+     name: "Quần jean xanh",
+     supplier: "CÔNG TY A",
+     quantity: 50,
+     price: "200.000",
+     size: "XL",
+     material: "Denim",
+     color: "Xanh",
+     status: "Đang bán",
+   },
+ ]);
+
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    supplier: "",
-    quantity: "",
-    price: "",
-    size: "",
-  });
+const [formData, setFormData] = useState({
+  id: "",
+  name: "",
+  supplier: "",
+  quantity: "",
+  price: "",
+  size: "",
+  material: "",
+  color: "",
+});
+
 
   const [isEditing, setIsEditing] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
@@ -67,15 +78,17 @@ export default function InventoryPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newProduct: Product = {
-      id: parseInt(formData.id),
-      name: formData.name,
-      supplier: formData.supplier,
-      quantity: parseInt(formData.quantity),
-      price: formData.price,
-      size: formData.size,
-      status: "Đang bán",
-    };
+  const newProduct: Product = {
+    id: parseInt(formData.id),
+    name: formData.name,
+    supplier: formData.supplier,
+    quantity: parseInt(formData.quantity),
+    price: formData.price,
+    size: formData.size,
+    material: formData.material,
+    color: formData.color,
+    status: "Đang bán",
+  };
     setProducts((prev) => [...prev, newProduct]);
     resetForm();
   };
@@ -88,26 +101,31 @@ export default function InventoryPage() {
       quantity: product.quantity.toString(),
       price: product.price,
       size: product.size,
+      material: product.material,
+      color: product.color,
     });
     setIsEditing(true);
   };
 
-  const handleSaveEdit = () => {
-    const updated = products.map((p) =>
-      p.id === parseInt(formData.id)
-        ? {
-            ...p,
-            supplier: formData.supplier,
-            quantity: parseInt(formData.quantity),
-            price: formData.price,
-            size: formData.size,
-          }
-        : p
-    );
-    setProducts(updated);
-    setIsEditing(false);
-    resetForm();
-  };
+
+const handleSaveEdit = () => {
+const updated = products.map((p) =>
+  p.id === parseInt(formData.id)
+    ? {
+        ...p,
+        supplier: formData.supplier,
+        quantity: parseInt(formData.quantity),
+        price: formData.price,
+        size: formData.size,
+        material: formData.material,
+        color: formData.color,
+      }
+    : p
+);
+  setProducts(updated);
+  setIsEditing(false);
+  resetForm();
+};
 
   const resetForm = () => {
     setFormData({
@@ -117,6 +135,8 @@ export default function InventoryPage() {
       quantity: "",
       price: "",
       size: "",
+      material: "",
+      color: "",
     });
   };
 
@@ -184,6 +204,22 @@ export default function InventoryPage() {
                onChange={handleChange}
                required
              />
+             <input
+               type="text"
+               placeholder="Chất liệu"
+               name="material"
+               value={formData.material}
+               onChange={handleChange}
+               required
+             />
+             <input
+               type="text"
+               placeholder="Màu sắc"
+               name="color"
+               value={formData.color}
+               onChange={handleChange}
+               required
+             />
              <select
                name="size"
                value={formData.size}
@@ -234,6 +270,8 @@ export default function InventoryPage() {
                  <th>Giá nhập</th>
                  <th>Số lượng</th>
                  <th>Size</th>
+                 <th>Chất liệu</th>
+                 <th>Màu sắc</th>
                  <th>Trạng thái</th>
                  <th></th>
                </tr>
@@ -247,6 +285,8 @@ export default function InventoryPage() {
                    <td>{product.price}</td>
                    <td>{product.quantity}</td>
                    <td>{product.size}</td>
+                   <td>{product.material}</td>
+                   <td>{product.color}</td>
                    <td>
                      {product.quantity === 0 ? (
                        <span className={styles.outOfStock}>Hết hàng</span>
@@ -302,6 +342,18 @@ export default function InventoryPage() {
                  type="text"
                  name="price"
                  value={formData.price}
+                 onChange={handleChange}
+               />
+               <input
+                 type="text"
+                 name="material"
+                 value={formData.material}
+                 onChange={handleChange}
+               />
+               <input
+                 type="text"
+                 name="color"
+                 value={formData.color}
                  onChange={handleChange}
                />
                <select

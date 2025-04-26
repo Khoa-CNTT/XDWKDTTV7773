@@ -42,12 +42,12 @@ export default function MarketingPage() {
     {
       date: "2025-04-15",
       code: "SALE20",
-      status: "Đã dùng",
+      status: "Hết Mã",
     },
     {
       date: "2025-04-17",
       code: "FREESHIP50",
-      status: "Đã dùng",
+      status: "Hết Mã",
     },
   ]);
 
@@ -134,7 +134,7 @@ export default function MarketingPage() {
             className={styles.addBtn}
             onClick={() => setIsModalOpen(true)}
           >
-            + Thêm mã
+            + Tạo Mã Mới
           </button>
         </div>
 
@@ -182,7 +182,7 @@ export default function MarketingPage() {
         {isModalOpen && (
           <div className={styles.modalOverlay}>
             <div className={styles.modal}>
-              <h2>Thêm mã giảm giá</h2>
+              <h2>Tạo Mã Giảm Giá Mới</h2>
               <div className={styles.formGroup}>
                 <label>Mã giảm giá:</label>
                 <input
@@ -245,7 +245,7 @@ export default function MarketingPage() {
         )}
 
         {/* Lịch sử dùng mã */}
-        <h2 className={styles.title}>Lịch sử đã dùng mã</h2>
+        <h2 className={styles.title}>Lịch Sử Tạo Mã</h2>
         <table className={styles.table}>
           <thead>
             <tr>

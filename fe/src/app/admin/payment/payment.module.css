@@ -11,7 +11,7 @@
   padding: 20px;
   position: absolute;
   top: 20px; /* tùy chỉnh theo chiều cao Header */
-  left: 270px; /* tùy chỉnh theo chiều rộng Sidebar */
+  left: 220px; /* tùy chỉnh theo chiều rộng Sidebar */
   right: 0;
   bottom: 0;
   overflow-y: auto; /* Cho phép cuộn dọc */

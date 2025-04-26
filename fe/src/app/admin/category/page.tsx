@@ -16,7 +16,10 @@ type Product = {
   quantity: number;
   size: string;
   category: string;
+  material: string; // Chất liệu
+  color: string; // Màu sắc
 };
+
 
 
 export default function CategoryPage() {
@@ -26,23 +29,27 @@ export default function CategoryPage() {
       name: "Vest-nam",
       description:
         "Vest-nam xám kèm phụ kiện cavat nơ tôn lên nét trẻ trung thanh lịch ",
-      price: "550.000",
+      price: "1000000",
       image:
         "https://th.bing.com/th/id/OIP.y2sQEkr1DaeZZP2_TEOE9gDIEs?rs=1&pid=ImgDetMain",
       quantity: 10,
       size: "XL",
       category: "Hàng Nam-Vest nam",
+      material: "vải cao cấp",
+      color: "xám",
     },
     {
       id: 2,
       name: "Áo dài Việt",
       description: "Áo dài là một loại trang phục truyền thống của Việt Nam...",
-      price: "300.000",
+      price: "300000",
       image:
         "https://anhvienmimosa.com.vn/wp-content/uploads/2023/02/ao-dai-cuoi-truyen-thong-xua-21-534x800.jpg",
       quantity: 20,
       size: "L",
       category: "Hàng Nữ-Áo dài",
+      material: "Lụa cao cấp",
+      color: "trắng ",
     },
   ]);
 
@@ -55,6 +62,8 @@ export default function CategoryPage() {
     quantity: "",
     size: "",
     category: "",
+    material: "",
+    color: "",
   });
 
   const [categories, setCategories] = useState([
@@ -64,50 +73,51 @@ export default function CategoryPage() {
     { id: 4025, name: "Quần Jeans", classification: "HÀNG MỚI" },
   ]);
 
-  const [searchTerm, setSearchTerm] = useState("");
+
   const [isEditing, setIsEditing] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
-  
-  
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+
   const [newCategory, setNewCategory] = useState({
     name: "",
     classification: "",
     type: "",
   });
 
+  const handleAddCategory = () => {
+    if (!newCategory.name.trim() || !newCategory.classification.trim()) {
+      alert("Vui lòng nhập đầy đủ tên sản phẩm và danh mục.");
+      return;
+    }
+    const newItem = {
+      id: Math.floor(Math.random() * 1000000),
+      name: newCategory.name,
+      classification: newCategory.classification,
+      type: newCategory.type,
+    };
 
-const handleAddCategory = () => {
-   if (!newCategory.name.trim() || !newCategory.classification.trim()) {
-     alert("Vui lòng nhập đầy đủ tên sản phẩm và danh mục.");
-     return;
-   }
-  const newItem = {
-    id: Math.floor(Math.random() * 1000000),
-    name: newCategory.name,
-    classification: newCategory.classification,
-    type: newCategory.type,
+    setCategories((prev) => [...prev, newItem]);
+
+    // Reset form
+    setNewCategory({ name: "", classification: "", type: "" });
+    setShowAddCategoryModal(false);
   };
 
-  setCategories((prev) => [...prev, newItem]);
+  const handleCategoryChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
 
-  // Reset form
-  setNewCategory({ name: "", classification: "", type: "" });
-  setShowAddCategoryModal(false);
-};
+    setNewCategory((prevCategory) => ({
+      ...prevCategory,
+      [name]: value,
+    }));
+  };
 
-
-const handleCategoryChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-) => {
-  const { name, value } = e.target;
-
-  setNewCategory((prevCategory) => ({
-    ...prevCategory,
-    [name]: value, 
-  }));
-};
-
-
+  const [priceFilter, setPriceFilter] = useState<string>(""); // ví dụ: "<500000", "500000-1000000", ">1000000"
+ 
 
   const handleDeleteCategory = (id: number) => {
     setCategories((prevCategories) =>
@@ -133,6 +143,8 @@ const handleCategoryChange = (
       quantity: "",
       size: "",
       category: "",
+      material: "",
+      color: "",
     });
   };
 
@@ -147,6 +159,8 @@ const handleCategoryChange = (
       quantity: parseInt(formData.quantity),
       size: formData.size,
       category: formData.category,
+      material: "",
+      color: "",
     };
     setProducts((prev) => [...prev, newProduct]);
     resetForm();
@@ -162,6 +176,8 @@ const handleCategoryChange = (
       quantity: product.quantity.toString(),
       size: product.size,
       category: product.category,
+      material: product.material,
+      color: product.color,
     });
     setIsEditing(true);
   };
@@ -177,6 +193,8 @@ const handleCategoryChange = (
             quantity: parseInt(formData.quantity),
             size: formData.size,
             category: formData.category,
+            material: formData.material,
+            color: formData.color,
           }
         : p
     );
@@ -191,9 +209,23 @@ const handleCategoryChange = (
     }
   };
 
-  const filtered = products.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+const filtered = products.filter((p) => {
+  const matchesSearch = p.name
+    .toLowerCase()
+    .includes(searchQuery.toLowerCase());
+
+  const price = Number(p.price);
+  let matchesPrice = true;
+  if (priceFilter === "<500000") matchesPrice = price < 500000;
+  else if (priceFilter === "500000-1000000")
+    matchesPrice = price >= 500000 && price <= 1000000;
+  else if (priceFilter === ">1000000") matchesPrice = price > 1000000;
+
+  return matchesSearch && matchesPrice;
+});
+
+
+
 
   return (
     <div className={styles.container}>
@@ -240,6 +272,21 @@ const handleCategoryChange = (
               name="image"
               placeholder="Link hình ảnh"
               value={formData.image}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="material"
+              placeholder="Chất liệu"
+              value={formData.material}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              name="color"
+              placeholder="Màu sắc"
+              value={formData.color}
               onChange={handleChange}
               required
             />
@@ -308,11 +355,26 @@ const handleCategoryChange = (
           {/* Tìm kiếm + bảng */}
           <div className={styles.tableWrapper}>
             <input
+              type="text"
+              placeholder="Tìm theo tên sản phẩm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className={styles.searchInput}
-              placeholder="Tìm kiếm sản phẩm..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              
             />
+
+            <div className={styles.filters}>
+              <select
+                value={priceFilter}
+                onChange={(e) => setPriceFilter(e.target.value)}
+              >
+                <option value="">Tất cả giá</option>
+                <option value="<500000">Dưới 500.000₫</option>
+                <option value="500000-1000000">500.000₫ - 1.000.000₫</option>
+                <option value=">1000000">Trên 1.000.000₫</option>
+              </select>
+            </div>
+
             <table className={styles.table}>
               <thead>
                 <tr>
@@ -321,6 +383,8 @@ const handleCategoryChange = (
                   <th>Mô tả</th>
                   <th>Giá bán</th>
                   <th>Hình ảnh</th>
+                  <th>Chất liệu</th>
+                  <th>Màu sắc</th>
                   <th>Số lượng</th>
                   <th>Size</th>
                   <th>Danh mục</th>
@@ -332,7 +396,30 @@ const handleCategoryChange = (
                   <tr key={product.id}>
                     <td>{product.id}</td>
                     <td>{product.name}</td>
-                    <td>{product.description}</td>
+                    <td>
+                      {expandedId === product.id ? (
+                        <>
+                          {product.description}
+                          <span
+                            onClick={() => setExpandedId(null)}
+                            className={styles.viewMore}
+                          >
+                            &nbsp;Thu gọn
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          {product.description.split(" ").slice(0, 5).join(" ")}
+                          ...
+                          <span
+                            onClick={() => setExpandedId(product.id)}
+                            className={styles.viewMore}
+                          >
+                            &nbsp;Xem thêm
+                          </span>
+                        </>
+                      )}
+                    </td>
                     <td>{product.price}₫</td>
                     <td>
                       <img
@@ -346,6 +433,8 @@ const handleCategoryChange = (
                         }}
                       />
                     </td>
+                    <td>{product.material}</td>
+                    <td>{product.color}</td>
                     <td>{product.quantity}</td>
                     <td>{product.size}</td>
                     <td>{product.category}</td>
@@ -381,6 +470,16 @@ const handleCategoryChange = (
               <input
                 name="description"
                 value={formData.description}
+                onChange={handleChange}
+              />
+              <input
+                name="material"
+                value={formData.material}
+                onChange={handleChange}
+              />
+              <input
+                name="color"
+                value={formData.color}
                 onChange={handleChange}
               />
               <input
@@ -495,7 +594,6 @@ const handleCategoryChange = (
                     Đóng
                   </button>
                 </div>
-
               </div>
             </div>
           </div>

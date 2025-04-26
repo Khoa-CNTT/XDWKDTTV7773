@@ -1,0 +1,305 @@
+/* app/may-do/MayDo.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    padding: 2rem 1rem;
+    flex: 1;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: center;
+}
+
+.centeredContainer {
+    max-width: 900px;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #2d2d2d;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.note {
+    color: #e63946;
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.order {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 3rem;
+    transition: transform 0.3s ease;
+}
+
+.order:hover {
+    transform: translateY(-5px);
+}
+
+.orderHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.95rem;
+    color: #777;
+    border-radius: 8px 8px 0 0;
+}
+
+.orderDetails {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.25rem;
+}
+
+.orderImage {
+    width: 160px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orderInfo {
+    flex: 1;
+}
+
+.orderInfo h3 {
+    font-size: 1.4rem;
+    color: #2d2d2d;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.orderInfo p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.25rem;
+}
+
+.orderActions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.favoriteButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #666;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.favoriteButton:hover {
+    background: #ff6f61;
+    color: white;
+    border-color: #ff6f61;
+}
+
+.express {
+    font-size: 0.9rem;
+    color: #ff6f61;
+    font-weight: 500;
+}
+
+.measurementButton {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.measurementButton:hover {
+    background: #e65b50;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.measurementSection {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.sectionTitle {
+    font-size: 1.8rem;
+    color: #2d2d2d;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-align: left;
+}
+
+.measurementStep {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.stepInfo {
+    flex: 1;
+}
+
+.stepTitle {
+    font-size: 1.2rem;
+    color: #2d2d2d;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.stepList {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+.stepItem {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+}
+
+.stepImageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stepImage {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 1.5rem;
+    }
+
+    .centeredContainer {
+        padding: 0 0.5rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .orderImage {
+        width: 130px;
+        height: 180px;
+    }
+
+    .orderInfo h3 {
+        font-size: 1.2rem;
+    }
+
+    .orderInfo p {
+        font-size: 0.9rem;
+    }
+
+    .measurementButton {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.6rem;
+    }
+
+    .measurementStep {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .stepImage {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main {
+        padding: 1rem;
+    }
+
+    .orderDetails {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .orderImage {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
+
+    .orderInfo {
+        text-align: center;
+    }
+
+    .orderActions {
+        justify-content: center;
+    }
+
+    .stepTitle {
+        font-size: 1.1rem;
+    }
+
+    .stepItem {
+        font-size: 0.9rem;
+    }
+
+    .stepImage {
+        max-height: 180px;
+    }
+}

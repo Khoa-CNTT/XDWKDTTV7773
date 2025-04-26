@@ -280,3 +280,27 @@
 .addButton:hover {
   background-color: #45a049;
 }
+
+.permissionBtn {
+  padding: 6px 12px;
+  background-color: #4c84e0; /* xanh dương */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+.permissionBtn:hover {
+  background-color: #3a6fcb;
+}
+
+/* Cột Địa chỉ có thể dài nên cần giới hạn chiều rộng và tự xuống dòng */
+.table td:nth-child(7),
+.table th:nth-child(7) {
+  max-width: 200px; /* hoặc 250px tùy giao diện thực tế */
+  white-space: normal;
+  word-wrap: break-word;
+}
+

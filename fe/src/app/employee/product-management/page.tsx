@@ -15,6 +15,8 @@ type Product = {
   quantity: number;
   size: string;
   category: string;
+  material: string;
+  color: string;
 };
 
 export default function CategoryPage() {
@@ -24,23 +26,27 @@ export default function CategoryPage() {
       name: "Vest-nam",
       description:
         "Vest-nam xám kèm phụ kiện cavat nơ tôn lên nét trẻ trung thanh lịch ",
-      price: "550.000",
+      price: "1000000",
       image:
         "https://th.bing.com/th/id/OIP.y2sQEkr1DaeZZP2_TEOE9gDIEs?rs=1&pid=ImgDetMain",
       quantity: 10,
       size: "XL",
       category: "Hàng Nam-Vest nam",
+      material: "vải cao cấp",
+      color: "xám",
     },
     {
       id: 2,
       name: "Áo dài Việt",
       description: "Áo dài là một loại trang phục truyền thống của Việt Nam...",
-      price: "300.000",
+      price: "300000",
       image:
         "https://anhvienmimosa.com.vn/wp-content/uploads/2023/02/ao-dai-cuoi-truyen-thong-xua-21-534x800.jpg",
       quantity: 20,
       size: "L",
       category: "Hàng Nữ-Áo dài",
+      material: "Lụa cao cấp",
+      color: "trắng",
     },
   ]);
 
@@ -53,13 +59,13 @@ export default function CategoryPage() {
     quantity: "",
     size: "",
     category: "",
+    material: "",
+    color: "",
   });
 
-
-  const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-
-
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -78,6 +84,8 @@ export default function CategoryPage() {
       quantity: "",
       size: "",
       category: "",
+      material: "",
+      color: "",
     });
   };
 
@@ -92,6 +100,8 @@ export default function CategoryPage() {
       quantity: parseInt(formData.quantity),
       size: formData.size,
       category: formData.category,
+      material: formData.material,
+      color: formData.color,
     };
     setProducts((prev) => [...prev, newProduct]);
     resetForm();
@@ -107,27 +117,10 @@ export default function CategoryPage() {
       quantity: product.quantity.toString(),
       size: product.size,
       category: product.category,
+      material: product.material,
+      color: product.color,
     });
     setIsEditing(true);
-  };
-
-  const handleSaveEdit = () => {
-    const updated = products.map((p) =>
-      p.id === parseInt(formData.id)
-        ? {
-            ...p,
-            description: formData.description,
-            price: formData.price,
-            image: formData.image,
-            quantity: parseInt(formData.quantity),
-            size: formData.size,
-            category: formData.category,
-          }
-        : p
-    );
-    setProducts(updated);
-    setIsEditing(false);
-    resetForm();
   };
 
   const handleDelete = (id: number) => {
@@ -137,8 +130,29 @@ export default function CategoryPage() {
   };
 
   const filtered = products.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+   const handleSaveEdit = () => {
+     const updated = products.map((p) =>
+       p.id === parseInt(formData.id)
+         ? {
+             ...p,
+             description: formData.description,
+             price: formData.price,
+             image: formData.image,
+             quantity: parseInt(formData.quantity),
+             size: formData.size,
+             category: formData.category,
+             material: formData.material,
+             color: formData.color,
+           }
+         : p
+     );
+     setProducts(updated);
+     setIsEditing(false);
+     resetForm();
+   };
 
   return (
     <div className={styles.container}>
@@ -175,6 +189,20 @@ export default function CategoryPage() {
               name="image"
               placeholder="Link hình ảnh"
               value={formData.image}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="material"
+              placeholder="Chất liệu"
+              value={formData.material}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="color"
+              placeholder="Màu sắc"
+              value={formData.color}
               onChange={handleChange}
               required
             />
@@ -240,14 +268,16 @@ export default function CategoryPage() {
             </div>
           </form>
 
-          {/* Tìm kiếm + bảng */}
+          {/* Tìm kiếm + bảng sản phẩm */}
           <div className={styles.tableWrapper}>
             <input
+              type="text"
+              placeholder="Tìm theo tên sản phẩm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className={styles.searchInput}
-              placeholder="Tìm kiếm sản phẩm..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
             />
+
             <table className={styles.table}>
               <thead>
                 <tr>
@@ -256,6 +286,8 @@ export default function CategoryPage() {
                   <th>Mô tả</th>
                   <th>Giá bán</th>
                   <th>Hình ảnh</th>
+                  <th>Chất liệu</th>
+                  <th>Màu sắc</th>
                   <th>Số lượng</th>
                   <th>Size</th>
                   <th>Danh mục</th>
@@ -267,7 +299,30 @@ export default function CategoryPage() {
                   <tr key={product.id}>
                     <td>{product.id}</td>
                     <td>{product.name}</td>
-                    <td>{product.description}</td>
+                    <td>
+                      {expandedId === product.id ? (
+                        <>
+                          {product.description}
+                          <span
+                            onClick={() => setExpandedId(null)}
+                            className={styles.viewMore}
+                          >
+                            &nbsp;Thu gọn
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          {product.description.split(" ").slice(0, 5).join(" ")}
+                          ...
+                          <span
+                            onClick={() => setExpandedId(product.id)}
+                            className={styles.viewMore}
+                          >
+                            &nbsp;Xem thêm
+                          </span>
+                        </>
+                      )}
+                    </td>
                     <td>{product.price}₫</td>
                     <td>
                       <img
@@ -281,20 +336,22 @@ export default function CategoryPage() {
                         }}
                       />
                     </td>
+                    <td>{product.material}</td>
+                    <td>{product.color}</td>
                     <td>{product.quantity}</td>
                     <td>{product.size}</td>
                     <td>{product.category}</td>
                     <td>
                       <div className={styles.actionButtons}>
                         <button
-                          onClick={() => handleEditClick(product)}
                           className={styles.editBtn}
+                          onClick={() => handleEditClick(product)}
                         >
                           Sửa
                         </button>
                         <button
-                          onClick={() => handleDelete(product.id)}
                           className={styles.deleteBtn}
+                          onClick={() => handleDelete(product.id)}
                         >
                           Xóa
                         </button>
@@ -307,7 +364,7 @@ export default function CategoryPage() {
           </div>
         </div>
 
-        {/* Modal chỉnh sửa sản phẩm */}
+          {/* Modal chỉnh sửa sản phẩm */}
         {isEditing && (
           <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
@@ -316,6 +373,16 @@ export default function CategoryPage() {
               <input
                 name="description"
                 value={formData.description}
+                onChange={handleChange}
+              />
+              <input
+                name="material"
+                value={formData.material}
+                onChange={handleChange}
+              />
+              <input
+                name="color"
+                value={formData.color}
                 onChange={handleChange}
               />
               <input
