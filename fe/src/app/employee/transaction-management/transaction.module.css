@@ -280,3 +280,8 @@
   color: #333;
 }
 
+@media print {
+  .print-button {
+    display: none;
+  }
+}

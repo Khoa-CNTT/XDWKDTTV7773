@@ -186,9 +186,7 @@ const handleAddOrder = (e: React.FormEvent) => {
                 <td>{order.orderCode}</td>
                 <td>{order.customerName}</td>
                 <td>{order.product}</td>
-                <td>
-                  {order.quantity} {order.unit}
-                </td>
+                <td>{order.quantity} {order.unit}</td>
                 <td>{order.price.toLocaleString()}₫</td>
                 <td>{order.status}</td>
                 <td>
