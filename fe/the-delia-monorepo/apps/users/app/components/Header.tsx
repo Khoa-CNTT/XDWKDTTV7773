@@ -176,27 +176,6 @@ export default function Header() {
                   )}
                 </button>
               </div>
-              <div className={styles.languageToggle}>
-                <Link
-                  href="/vi"
-                  className={`${styles.languageOption} ${
-                    locale === "vi" ? styles.activeLanguage : ""
-                  }`}
-                  aria-label="Switch to Vietnamese"
-                >
-                  VN
-                </Link>
-                <span className={styles.languageSeparator}>|</span>
-                <Link
-                  href="/en"
-                  className={`${styles.languageOption} ${
-                    locale === "en" ? styles.activeLanguage : ""
-                  }`}
-                  aria-label="Switch to English"
-                >
-                  EN
-                </Link>
-              </div>
             </>
           )}
         </div>
@@ -215,11 +194,11 @@ export default function Header() {
             {tHeader("home")}
           </Link>
           <Link
-            href="/may-do"
+            href="/SizeGuide"
             className={`${styles.navLink} ${
-              pathname === "/may-do" ? styles.activeLink : ""
+              pathname === "/SizeGuide" ? styles.activeLink : ""
             }`}
-            aria-current={pathname === "/may-do" ? "page" : undefined}
+            aria-current={pathname === "/SizeGuide" ? "page" : undefined}
           >
             {tHeader("customTailoring")}
           </Link>
