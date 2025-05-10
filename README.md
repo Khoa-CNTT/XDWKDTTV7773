@@ -2,23 +2,23 @@
 **BUILD A FASHION BUSINESS WEBSITE AND INTEGRATE AI CHATBOT TO ADVISE CUSTOMERS**
 
 **Công Nghệ Sử Dụng**
-## Frontend 90%
+## Frontend 100%
 ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white)
 ![NextJS](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 
-## Backend ĐANG TRIỂN KHAI
+## Backend 50%
 ![NodeJS](https://img.shields.io/badge/NodeJS-339933?style=flat&logo=node.js&logoColor=white)
 ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=nestjs&logoColor=white)
 
-## Database ĐÃ TRIỂN KHAI
+## Database 100%
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
 
-## Chatbot ĐANG TRIỂN KHAI
+## Chatbot 70%
 ![Dialogflow](https://img.shields.io/badge/Dialogflow-FF9800?style=flat&logo=dialogflow&logoColor=white)
 ![Microsoft Copilot](https://img.shields.io/badge/Microsoft%20Copilot-0078D4?style=flat&logo=microsoft&logoColor=white)
 
-## Payment Gateway ĐANG TRIỂN KHAI
+## Payment Gateway 20%
 ![VNPay](https://img.shields.io/badge/VNPay-DC1D1D?style=flat&logo=vnPay&logoColor=white)
 
 ## Hosting
@@ -78,16 +78,15 @@ cd frontend
   npm install
   npm run dev
 
-*Truy cập web, google:  [text](http://localhost:3000) hiện ra ▲ Next.js 15.2.4
-  [text](http://localhost:3000/....) để trỏ tới trang tiếp theo;
+*Truy cập web, google:  [text](http://localhost:3000) hiện ra trang Users
+  [text](http://localhost:3001) hiện ra trang ADMIN
 
 NHÓM 37_XDWKDTTV
 Nguyễn Phạm Quốc Hưng TRƯỞNG NHÓM
+Lê Quang Trường  PHÓ NHÓM
 Phạm Xuân Hải
 Lê Duy Ngọc
 Võ Công Mạnh
-Lê Quang Trường  PHÓ NHÓM
-
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
