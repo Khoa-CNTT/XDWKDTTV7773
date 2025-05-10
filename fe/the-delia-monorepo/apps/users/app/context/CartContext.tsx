@@ -13,6 +13,8 @@ interface CartItem {
   image: string;
   size: string;
   material: string;
+  color?: string;
+  fabric?: string;
   category?: string; 
   subCategory?: string; 
   description?: string; 

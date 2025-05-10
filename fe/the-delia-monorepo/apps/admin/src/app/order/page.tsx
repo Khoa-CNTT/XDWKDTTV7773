@@ -235,16 +235,20 @@ const handleAddOrder = (e: React.FormEvent) => {
                   placeholder="Tên khách hàng"
                   value={formData.customerName}
                   onChange={handleFormChange}
-                  required
+                  readOnly
+                  className={styles.inputReadOnly}
                 />
+
                 <input
                   name="product"
                   type="text"
                   placeholder="Sản phẩm"
                   value={formData.product}
                   onChange={handleFormChange}
-                  required
+                  readOnly
+                  className={styles.inputReadOnly}
                 />
+
                 <input
                   name="quantity"
                   type="number"
@@ -252,16 +256,20 @@ const handleAddOrder = (e: React.FormEvent) => {
                   placeholder="Số lượng"
                   value={formData.quantity}
                   onChange={handleFormChange}
-                  required
+                  readOnly
+                  className={styles.inputReadOnly}
                 />
+
                 <input
                   name="unit"
                   type="text"
                   placeholder="Đơn vị (bộ, cái, chiếc...)"
                   value={formData.unit}
                   onChange={handleFormChange}
-                  required
+                  readOnly
+                  className={styles.inputReadOnly}
                 />
+
                 <input
                   name="price"
                   type="text"
@@ -272,18 +280,23 @@ const handleAddOrder = (e: React.FormEvent) => {
                     const numericValue = parseInt(rawValue) || 0;
                     setFormData({ ...formData, price: numericValue });
                   }}
-                  required
+                  readOnly
+                  className={styles.inputReadOnly}
                 />
+
+                {/* ✅ Đây là phần DUY NHẤT được phép chỉnh */}
                 <select
                   name="status"
                   value={formData.status}
                   onChange={handleFormChange}
+                  required
                 >
                   <option value="Đang xử lý">Đang xử lý</option>
                   <option value="Đã tiếp nhận">Đã tiếp nhận</option>
                   <option value="Đã giao">Đã giao</option>
                   <option value="Đã hủy">Đã hủy</option>
                 </select>
+
                 <div className={styles.formActions}>
                   <button type="submit" className={styles.submitBtn}>
                     {isAdding ? "Thêm" : "Cập nhật"}

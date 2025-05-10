@@ -55,7 +55,12 @@ export default function AddToCartButton({ product, className, quantity = 1 }: Ad
       isAdding.current = true;
       console.log(`handleAddToCart được gọi cho sản phẩm ${product.id}`);
 
-      addToCart({ ...product, quantity }); // Sử dụng quantity từ props
+      addToCart({
+        ...product, 
+        quantity,
+        size: "",
+        material: product.material || "" 
+      }); 
 
       toast.success(
         <div>

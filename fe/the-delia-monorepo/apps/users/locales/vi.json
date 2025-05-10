@@ -40,8 +40,8 @@
     "fashionShow2024": "Fashion Show 2024 - The Edge of Elegance",
     "weddingTitle": "Tiệc cưới",
     "floralTitle": "Hoa tiết hoa",
-    "customTailoring": "May đo",
-    "tailoring": "May đo",
+    "customTailoring": "Hướng dẫn chọn size",
+    "tailoring": "Hướng dẫn chọn size",
     "highlights": "Nổi bật",
     "loading": "Đang tải...",
     "viewMore": "Xem thêm",
@@ -61,7 +61,7 @@
     "userName": "Bạn chưa đăng nhập",
     "ordersProcessing": "Đơn hàng đang được xử lý",
     "ordersDelivered": "Đơn hàng đang giao hàng",
-    "changeReturn": "Thay đổi/đơn hàng",
+    "changeReturn": "Thay đổi đơn hàng",
     "emptyOrders": "Chưa có đơn đặt hàng nào",
     "profile": "Thông tin của tui",
     "favorites": "Sản phẩm yêu thích",
@@ -96,6 +96,7 @@
     "connectWithUs": "Kết nối với chúng tôi",
     "haveAQuestion": "Có một câu hỏi?",
     "message": "Lời nhắn",
+    "personalInfo": "Thông tin cá nhân",
     "submitMessage": "Gửi Lời Nhắn"
   },
   "Home": {
@@ -174,7 +175,7 @@
     "material": "Chất liệu",
     "color": "Màu sắc",
     "size": "Kích thước",
-    "madeToMeasure": "May theo số đo",
+    "madeToMeasure": "Hướng dẫn chọn size",
     "quantity": "Số lượng",
     "addToCart": "Thêm vào giỏ hàng",
     "description": "Mô tả",
@@ -188,16 +189,7 @@
     "addToFavoritesAria": "Thêm vào mục yêu thích",
     "removeFavoriteAria": "Xóa khỏi mục yêu thích",
     "addedToFavorites": "Đã thêm vào mục yêu thích!",
-    "removedFromFavorites": "Đã xóa khỏi mục yêu thích!",
-    "errorInvalidProduct": "Sản phẩm không hợp lệ.",
-    "noImage": "Không có hình ảnh",
-    "relatedProducts": "Sản phẩm tương tự",
-    "home": "Trang chủ",
-    "shop": "Mua sắm",
-    "newArrivalsTitle": "Hàng mới",
-    "backToShop": "Quay lại cửa hàng",
-    "colors": "Màu sắc",
-    "sizes": "Kích cỡ"
+    "removedFromFavorites": "Đã xóa khỏi mục yêu thích!"
   },
   "Cart": {
     "title": "Cart",
@@ -216,7 +208,9 @@
     "material": "Chất liệu",
     "size": "Kích thước",
     "addToFavorites": "Thêm vào yêu thích",
-    "pleaseLogin": "Xin hãy đăng nhập để mua sản phẩm!"
+    "pleaseLogin": "Xin hãy đăng nhập để mua sản phẩm!",
+    "color": "Màu sắc",
+    "fabric": "Chất liệu"
   },
   "MuaSam": {
     "title": "Mua sắm",
@@ -318,6 +312,8 @@
     "shortPantsAnswer": "Có, chúng tôi có sẵn các mẫu quần trong ngắn, đầm nhu Cẩm, Gụa và nhiều mẫu khác.",
     "madeToMeasureVsBespokeQuestion": "Sự khác biệt giữa MAY THEO SỐ ĐO (Made to Measure) và đặt hàng tùy chỉnh (Bespoke) là gì?",
     "madeToMeasureVsBespokeAnswer": "May theo số đo là dựa trên kích thước của bạn, còn đặt hàng tùy chỉnh bao gồm thiết kế riêng biệt.",
+    "madeToMeasureVsBespokeQuestion": "Sự khác biệt giữa HƯỚNG DẪN CHỌN SIZE (Made to Measure) và đặt hàng tùy chỉnh (Bespoke) là gì?",
+    "madeToMeasureVsBespokeAnswer": "Hướng dẫn chọn size là dựa trên kích thước của bạn, còn đặt hàng tùy chỉnh bao gồm thiết kế riêng biệt.",
     "careInstructionsQuestion": "Hướng dẫn chăm sóc sản phẩm của bạn là gì?",
     "careInstructionsAnswer": "Sản phẩm của chúng tôi nên được giặt tay hoặc giặt khô để giữ form dáng tốt nhất.",
     "returnsCategory": "ĐỔI VÀ TRẢ HÀNG",

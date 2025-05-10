@@ -5,11 +5,17 @@
   }
   
   .pageTitle {
+    background: #505050;
+    color: #fff;
+    padding: 1.2rem 2rem 0.8rem 2.5rem;
+    border-radius: 0 0 0 0;
     font-size: 2rem;
-    font-weight: 600;
-    color: #333;
-    text-align: center;
-    margin-bottom: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: -2rem -2rem 2rem -2rem;
+    text-transform: uppercase;
   }
   
   .emptyMessage {
@@ -111,4 +117,101 @@
   
   .favoriteButton:hover .favoriteIcon {
     color: #e91e63;
+  }
+  
+  .pageTitle i {
+    color: #fff;
+    font-size: 2.2rem;
+    margin-right: 0.7rem;
+    vertical-align: middle;
+  }
+  
+  .emptyIcon {
+    display: block;
+    margin: 0 auto 1.2rem auto;
+    width: 120px;
+    height: 120px;
+    opacity: 0.7;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+  }
+  
+  .pageBtn {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 0.3rem 1rem;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    margin: 0 0.2rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  
+  .pageBtn.active, .pageBtn:focus {
+    background: #222;
+    color: #fff;
+    border-color: #222;
+  }
+  
+  .favoritesContainer {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 0;
+    min-height: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 2rem 0 2.5rem 0;
+  }
+  
+  .emptyIconBig {
+    font-size: 3.5rem;
+    color: #222;
+    margin-bottom: 1.2rem;
+  }
+  
+  .emptyText {
+    color: #444;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .shopBtn {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 2.2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .shopBtn:hover {
+    background: #444;
+    color: #fff;
   }

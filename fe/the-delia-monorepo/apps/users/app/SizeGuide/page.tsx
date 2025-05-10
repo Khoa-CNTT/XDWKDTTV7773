@@ -2,7 +2,7 @@
 // app/may-do/page.tsx
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { FaWhatsapp, FaInstagram, FaQuestionCircle } from "react-icons/fa";
+import SocialIcons from "../components/SocialIcons";
 import styles from "./SizeGuide.module.css";
 import pageStyles from "../page.module.css";
 
@@ -76,27 +76,7 @@ export default function SizeGuide() {
         </div>
       </main>
 
-      <div className={pageStyles.socialIcons}>
-        <a
-          href="https://whatsapp.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaWhatsapp className={pageStyles.icon} />
-        </a>
-        <a
-          href="https://instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaInstagram className={pageStyles.icon} />
-        </a>
-        <a href="https://example.com" target="_blank" rel="noopener noreferrer">
-          <FaQuestionCircle className={pageStyles.icon} />
-        </a>
-      </div>
-
-      <Footer />
+      <SocialIcons />
     </div>
   );
 }

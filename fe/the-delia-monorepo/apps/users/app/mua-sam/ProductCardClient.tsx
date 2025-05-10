@@ -108,47 +108,6 @@ export default async function ShopPageClient({
           })}
         </>
       )}
-      <footer className={styles.footer}>
-        <div className={styles.footerContainer}>
-          <div className={styles.footerLogo}>
-            <Image src="/logo-couture.png" alt="Couture Logo" width={120} height={40} />
-            <p className={styles.tagline}>{tHome("footerTagline")}</p>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3>{tHome("footerCustomerService")}</h3>
-            <ul>
-              <li><Link href="/lien-he">{tHome("footerContact")}</Link></li>
-              <li><Link href="/faqs">{tHome("footerFAQs")}</Link></li>
-              <li><Link href="/dia-chi">{tHome("footerLocations")}</Link></li>
-              <li><Link href="/chinh-sach">{tHome("footerPolicies")}</Link></li>
-            </ul>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3>{tHome("footerAbout")}</h3>
-            <ul>
-              <li><Link href="/he-delia-couture">{tHome("footerHistory")}</Link></li>
-              <li><Link href="/khach-hang">{tHome("footerClients")}</Link></li>
-              <li><Link href="/chuyen-mon">{tHome("footerExpertise")}</Link></li>
-              <li><Link href="/bao-chi">{tHome("footerPress")}</Link></li>
-            </ul>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3>{tHome("footerHighlights")}</h3>
-            <ul>
-              <li><Link href="/ky-niem">{tHome("footerMilestones")}</Link></li>
-              <li><Link href="/earth-essence">{tHome("footerEarthEssence")}</Link></li>
-              <li><Link href="/simplicity">{tHome("footerSimplicity")}</Link></li>
-              <li><Link href="/fashion-show">{tHome("footerFashionShow")}</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className={styles.footerSocial}>
-          <h3>{tHome("footerCommunity")}</h3>
-        </div>
-        <div className={styles.footerBottom}>
-          <p>{tHome("footerCopyright", { year: new Date().getFullYear() })}</p>
-        </div>
-      </footer>
       <FloatingIcons />
     </div>
   );

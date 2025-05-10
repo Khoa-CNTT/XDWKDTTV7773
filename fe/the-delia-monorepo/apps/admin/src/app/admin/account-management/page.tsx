@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./page.module.css";
 import Sidebar from "@shared/components/Sidebar";
 import Header from "@shared/components/Header";
-import PermissionModal from "@shared/components/PermissionModal"; // đường dẫn chỉnh tùy theo cấu trúc thư mục
+import PermissionModal from "@shared/components/PermissionModal";
 
 interface Account {
   address: string;
@@ -13,6 +13,7 @@ interface Account {
   email: string;
   role: string;
   status: string;
+  password?: string;
 }
 
 type AccountType = {
@@ -48,7 +49,7 @@ export default function AccountManagement() {
      id: 1,
      name: "Nguyễn Văn A",
      phone: "0901234567",
-     email: "a.nguyen@example.com",
+     email: "a.nguyen@gmail.com",
      role: "Admin",
      status: "Hoạt động",
      address: "123 Đường ABC, Quận 1",
@@ -57,21 +58,21 @@ export default function AccountManagement() {
      id: 2,
      name: "Trần Thị B",
      phone: "0902345678",
-     email: "b.tran@example.com",
+     email: "b.tran@gmail.com",
      role: "Nhân viên",
-     status: "Khóa",
+     status: "Hoạt động",
      address: "456 Đường DEF, Quận 2",
    },
    {
      id: 3,
      name: "Lê Thị C",
      phone: "0903456789",
-     email: "c.le@example.com",
+     email: "c.le@gmail.com",
      role: "Khách hàng",
      status: "Hoạt động",
      address: "789 Đường XYZ, Quận 3",
    },
- ])
+ ]);
 
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -87,21 +88,35 @@ export default function AccountManagement() {
    role: "",
    status: "Hoạt động",
    address: "",
+   password: "",
  });
 
-  const handleFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
+const handleFormChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target;
+
+  if (name === "role") {
+    // Gán mật khẩu mặc định nếu là nhân viên, xóa nếu là admin
+    setFormData((prev) => ({
+      ...prev,
+      role: value,
+      password: value === "Nhân viên" ? "1234567890@" : "",
+    }));
+  } else {
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  }
+};
+
 
   const handleAddAccount = (e: React.FormEvent) => {
     e.preventDefault();
-    const newAccount: Account = {
-      id: Date.now(),
-      ...formData,
-    };
+  const newAccount: Account = {
+    id: Date.now(),
+    ...formData,
+    password: formData.role === "Nhân viên" ? "1234567890@" : "",
+  };
+
     setAccounts([...accounts, newAccount]);
     setFormData({
       name: "",
@@ -110,6 +125,7 @@ export default function AccountManagement() {
       role: "",
       status: "Hoạt động",
       address: "",
+      password: "",
     });
     setIsAdding(false);
   };
@@ -129,6 +145,7 @@ export default function AccountManagement() {
       role: "",
       status: "Hoạt động",
       address: "",
+      password: "",
     });
     setIsEditing(false);
   };
@@ -145,7 +162,8 @@ export default function AccountManagement() {
       email: account.email,
       role: account.role,
       status: account.status,
-      address: account.address, 
+      address: account.address,
+      password: account.role === "Nhân viên" ? "1234567890@" : "",
     });
     setIsEditing(true);
   }
@@ -201,6 +219,7 @@ export default function AccountManagement() {
               <th>Số điện thoại</th>
               <th>Địa chỉ</th>
               <th>Vai trò</th>
+              <th>Mật khẩu</th>
               <th>Trạng thái</th>
               <th></th>
             </tr>
@@ -227,6 +246,8 @@ export default function AccountManagement() {
                     {acc.role}
                   </span>
                 </td>
+
+                <td>{acc.role === "Nhân viên" ? "********" : ""}</td>
 
                 <td>
                   {acc.status === "Hoạt động" ? (
@@ -320,7 +341,6 @@ export default function AccountManagement() {
                 </div>
 
                 <div className={styles.formGroup}>
-
                   <input
                     name="email"
                     type="email"
@@ -332,12 +352,22 @@ export default function AccountManagement() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  
                   <input
                     name="phone"
                     type="text"
                     placeholder="Nhập số điện thoại"
                     value={formData.phone}
+                    onChange={handleFormChange}
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <input
+                    name="address"
+                    type="text"
+                    placeholder="Nhập địa chỉ"
+                    value={formData.address}
                     onChange={handleFormChange}
                     required
                   />
@@ -356,6 +386,26 @@ export default function AccountManagement() {
                   </select>
                 </div>
 
+                {/* Ẩn hoặc không cho chỉnh sửa mật khẩu khi đang cập nhật */}
+                {!isEditing &&
+                  (formData.role === "Admin" ||
+                    formData.role === "Nhân viên") && (
+                    <div className={styles.formGroup}>
+                      <input
+                        name="password"
+                        type="text"
+                        placeholder="Mật khẩu"
+                        value={formData.password}
+                        onChange={handleFormChange}
+                        readOnly={formData.role === "Nhân viên"} // "Nhân viên" chỉ xem
+                        disabled={formData.role === "Admin"} // "Admin" không chỉnh sửa
+                        className={
+                          formData.role === "Admin" ? styles.inputReadOnly : ""
+                        }
+                      />
+                    </div>
+                  )}
+
                 <div className={styles.formActions}>
                   <button type="submit" className={styles.submitBtn}>
                     {isAdding ? "Thêm" : "Cập nhật"}
@@ -373,7 +423,8 @@ export default function AccountManagement() {
                         email: "",
                         role: "",
                         status: "Hoạt động",
-                        address: "Địa chỉ",
+                        address: "",
+                        password: "Mật Khẩu",
                       });
                     }}
                   >

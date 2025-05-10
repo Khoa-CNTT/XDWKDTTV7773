@@ -33,7 +33,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     setFavorites((prev) => {
       const exists = prev.find((item) => item.id === product.id);
       if (exists) {
-        return prev; // Nếu đã có, không làm gì (sẽ xóa bằng removeFromFavorites)
+        return prev; 
       }
       return [...prev, product];
     });

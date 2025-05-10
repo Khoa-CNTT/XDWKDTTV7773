@@ -60,27 +60,26 @@ export default function AddToCartButton({
         return;
       }
 
-      const productId = parseInt(product.id, 10);
-      if (isNaN(productId)) {
-        console.error("ID sản phẩm không hợp lệ:", product.id);
-        toast.error(t("errorInvalidProduct"), {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "light",
-        });
-        isAdding.current = false;
-        return;
-      }
-
-      addToCart({
-        ...product,
-        id: productId,
-        quantity,
-      });
+      const cartItem = {
+        id: typeof product.id === 'string' ? parseInt(product.id, 10) : product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        quantity: quantity,
+        size: product.size || '',
+        material: product.material || '',
+        color: product.color || '',
+        fabric: product.fabric || '',
+        category: product.category || '',
+        subCategory: product.subCategory || '',
+        description: product.description || '',
+        colors: product.colors || [],
+        sizes: product.sizes || [],
+        images: product.images || [],
+        fabricImage: product.fabricImage || '',
+        favorites: product.favorites || 0,
+      };
+      addToCart(cartItem);
 
       toast.success(t("addedToCart"), {
         toastId: `add-to-cart-${product.id}`,

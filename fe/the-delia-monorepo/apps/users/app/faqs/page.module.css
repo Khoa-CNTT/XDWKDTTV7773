@@ -48,7 +48,7 @@
   
   .faqCategory h2 {
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 500;
     color: #000;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
@@ -201,4 +201,15 @@
     .footerLogo {
       align-items: center;
     }
+  }
+
+  /* Tăng kích thước chữ cho câu hỏi FAQ */
+  .faqQuestion {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  /* Tăng kích thước chữ cho đáp án FAQ */
+  .faqAnswer {
+    font-size: 1.1rem;
   }

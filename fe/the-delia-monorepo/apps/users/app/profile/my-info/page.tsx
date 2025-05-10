@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./MyInfo.module.css";
+import { BsPersonCircle } from "react-icons/bs";
 
 export default function MyInfoPage() {
   const t = useTranslations("Profile");
@@ -25,10 +26,10 @@ export default function MyInfoPage() {
   const [addressData, setAddressData] = useState({
     fullName: "",
     email: user?.email || "",
-    country: "", // Đổi từ district thành country
+    country: "", 
     phone: "",
-    city: "", // Đổi từ ward thành city
-    districtText: "", // Giữ nguyên districtText
+    city: "", 
+    districtText: "", 
     street: "",
     postalCode: "",
   });
@@ -92,84 +93,46 @@ export default function MyInfoPage() {
 
   return (
     <div className={styles.mainContent}>
-      <h1 className={styles.pageTitle}>{t("myInfo")}</h1>
+      <h1 className={styles.pageTitle}><i className="bi bi-person"></i> {t("myInfo")}</h1>
+      <div className={styles.sectionTitle}>{t("personalInfo")}</div>
       <div className={styles.formContainer}>
-        <form className={styles.form}>
-          <div className={styles.inputGroup}>
-            <label>{t("email")} <span className={styles.required}>*</span></label>
-            <div className={styles.inputWrapper}>
-              <span className={styles.userIcon}>M</span>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={styles.input}
-                disabled
-              />
+        <form className={styles.form} autoComplete="off">
+          <div className={styles.avatarRow}>
+            <BsPersonCircle className={styles.avatarIcon} />
+            <div className={styles.emailGroup}>
+              <label className={styles.emailLabel}>Email <span className={styles.required}>*</span></label>
+              <input type="email" name="email" value={formData.email} disabled className={styles.input} />
             </div>
           </div>
           <div className={styles.nameRow}>
             <div className={styles.inputGroup}>
               <label>{t("firstName")} <span className={styles.required}>*</span></label>
-              <div className={styles.inputWrapper}>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className={styles.input}
-                />
-                <span className={styles.checkmark}>✔</span>
-              </div>
+              <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className={styles.input} />
+              <span className={styles.checkmark}>✔</span>
             </div>
             <div className={styles.inputGroup}>
               <label>{t("lastName")} <span className={styles.required}>*</span></label>
-              <div className={styles.inputWrapper}>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className={styles.input}
-                />
-                <span className={styles.checkmark}>✔</span>
-              </div>
+              <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className={styles.input} />
+              <span className={styles.checkmark}>✔</span>
             </div>
           </div>
           <div className={styles.inputGroup}>
             <label>{t("phone")} <span className={styles.required}>*</span></label>
-            <div className={styles.inputWrapper}>
-              <input
-                type="text"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder={t("phonePlaceholder")}
-                className={styles.input}
-              />
-              <span className={styles.checkmark}>✔</span>
-            </div>
+            <input type="text" name="phone" value={formData.phone} onChange={handleChange} className={styles.input} />
+            <span className={styles.checkmark}>✔</span>
           </div>
           <div className={styles.buttonGroup}>
-            <button type="button" onClick={handleCancel} className={styles.cancelButton}>
-              {t("cancel")}
-            </button>
-            <button type="button" onClick={handleSave} className={styles.saveButton}>
-              {t("save")}
-            </button>
+            <button type="button" onClick={handleCancel} className={styles.cancelButton}>{t("cancel")}</button>
+            <button type="button" onClick={handleSave} className={styles.saveButton}>{t("save")}</button>
           </div>
         </form>
       </div>
       <div className={styles.addressSection}>
         <div className={styles.addressHeader}>
           <h2>{t("addressList")}</h2>
-          <button
-            className={styles.addAddressButton}
-            onClick={() => setIsModalOpen(true)}
-          >
-            + {t("addAddress")}
-          </button>
+          <button className={styles.addAddressButton} onClick={() => setIsModalOpen(true)}>+ {t("addAddress")}</button>
+        </div>
+        <div className={styles.addressList}>
         </div>
       </div>
 

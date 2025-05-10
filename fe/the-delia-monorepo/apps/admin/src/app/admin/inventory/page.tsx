@@ -73,25 +73,51 @@ const [formData, setFormData] = useState({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: name === "quantity" ? value.replace(/\D/, "") : value, }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  const newProduct: Product = {
-    id: parseInt(formData.id),
-    name: formData.name,
-    supplier: formData.supplier,
-    quantity: parseInt(formData.quantity),
-    price: formData.price,
-    size: formData.size,
-    material: formData.material,
-    color: formData.color,
-    status: "Đang bán",
-  };
-    setProducts((prev) => [...prev, newProduct]);
+  
+    const quantityNumber = parseInt(formData.quantity) || 0;
+  
+    if (!formData.name || !formData.supplier || quantityNumber <= 0) {
+      alert("Vui lòng nhập đầy đủ thông tin và số lượng hợp lệ.");
+      return;
+    }
+  
+    // Kiểm tra trùng sản phẩm theo name + supplier
+    const existingIndex = products.findIndex(
+      (item) =>
+        item.name.trim().toLowerCase() === formData.name.trim().toLowerCase() &&
+        item.supplier.trim().toLowerCase() === formData.supplier.trim().toLowerCase()
+    );
+  
+    if (existingIndex !== -1) {
+      // Nếu trùng thì cộng dồn số lượng
+      const updated = [...products];
+      updated[existingIndex].quantity += quantityNumber;
+      setProducts(updated);
+    } else {
+      const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+      // Nếu không trùng thì thêm mới
+      const newProduct: Product = {
+        id: Date.now(),
+        name: formData.name.trim(),
+        supplier: formData.supplier.trim(),
+        quantity: quantityNumber,
+        price: formData.price.trim(),
+        size: formData.size,
+        material: formData.material.trim(),
+        color: formData.color.trim(),
+        status: "Đang bán",
+      };
+      setProducts((prev) => [...prev, newProduct]);
+    }
+  
     resetForm();
   };
+  
 
   const handleEditClick = (product: Product) => {
     setFormData({
@@ -164,14 +190,7 @@ const updated = products.map((p) =>
          {/* FORM THÊM */}
          <div className={styles.formWrapper}>
            <form className={styles.form} onSubmit={handleSubmit}>
-             <input
-               type="text"
-               placeholder="ID"
-               name="id"
-               value={formData.id}
-               onChange={handleChange}
-               required
-             />
+             
              <input
                type="text"
                placeholder="Tên hàng hóa"
@@ -387,16 +406,16 @@ const updated = products.map((p) =>
 
        {showHistory && (
          <div className={styles.historySection}>
-           <h3>Lịch Sử Xuất Kho</h3>
+           <h3>Lịch Sử Nhập Kho</h3>
            <div className={styles.scrollWrapper}>
              <table className={styles.table}>
                <thead>
                  <tr>
-                   <th>Mã phiếu</th>
+                   <th>ID</th>
                    <th>Sản phẩm</th>
                    <th>Số lượng</th>
-                   <th>Ngày xuất</th>
-                   <th>Ghi chú</th>
+                   <th>Ngày Nhập</th>
+                   <th>Nhà Cung Cấp</th>
                  </tr>
                </thead>
                <tbody>
@@ -405,21 +424,21 @@ const updated = products.map((p) =>
                    <td>Áo Vest Nam</td>
                    <td>5</td>
                    <td>2024-04-10</td>
-                   <td>Xuất cho showroom A</td>
+                   <td>Nhập Lô Hàng Vest Từ Công Ty TNHH A</td>
                  </tr>
                  <tr>
                    <td>XK002</td>
-                   <td>Váy Dài</td>
+                   <td>Đầm Dạo Phố </td>
                    <td>3</td>
                    <td>2024-04-12</td>
-                   <td>Xuất cho chi nhánh B</td>
+                   <td>Nhập Lô Hàng Đầm Nhiều Mẫu Từ Tập Đoàn Chuyên Sản Xuất Đầm AB</td>
                  </tr>
                  <tr>
-                   <td>XK002</td>
-                   <td>Váy Dài</td>
+                   <td>XK003</td>
+                   <td>Áo Dài</td>
                    <td>3</td>
                    <td>2024-04-12</td>
-                   <td>Xuất cho chi nhánh B</td>
+                   <td>Nhập Lô Hàng Áo Dài Lụa Từ Công Ty TTL O</td>
                  </tr>
                </tbody>
              </table>

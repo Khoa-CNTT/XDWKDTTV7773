@@ -213,4 +213,9 @@
 .paymentIcons img {
   width: 40px;
   height: auto;
+  margin-right: 16px;
+}
+
+.paymentIcons img:last-child {
+  margin-right: 0;
 }

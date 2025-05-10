@@ -2,7 +2,6 @@
 /* app/profile/layout.tsx */
 import { getTranslations, getMessages } from "next-intl/server";
 import HeaderWrapper from "../components/HeaderWrapper";
-import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import styles from "./ProfileLayout.module.css";
 import { AuthProvider } from "../context/AuthContext";
@@ -25,7 +24,6 @@ export default async function ProfileLayout({
           <Sidebar />
           <div className={styles.content}>{children}</div>
         </div>
-        <Footer />
       </div>
     </AuthProvider>
   );

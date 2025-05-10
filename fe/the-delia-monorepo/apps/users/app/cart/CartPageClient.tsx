@@ -7,10 +7,10 @@ import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import styles from "./Cart.module.css";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Swal from 'sweetalert2';
 
 interface CartPageClientProps {
   messages: any;
@@ -40,14 +40,19 @@ export default function CartPageClient({ messages, locale }: CartPageClientProps
 
   const totalPrice = cartItems ? cartItems.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0) : 0;
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!isAuthenticated) {
-      alert(tCart("pleaseLogin"));
-      const redirectUrl = `/cart/thanh-toan`;
-      router.push(`/auth/login?redirect=${encodeURIComponent(redirectUrl)}`); 
-    } else {
-      router.push("/cart/thanh-toan");
+      await Swal.fire({
+        title: 'Bạn chưa đăng nhập',
+        text: 'Xin hãy đăng nhập để mua sản phẩm!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#ff6f61'
+      });
+      router.push("/");
+      return;
     }
+    router.push("/cart/thanh-toan");
   };
 
   return (
@@ -82,7 +87,7 @@ export default function CartPageClient({ messages, locale }: CartPageClientProps
                   <span>{totalPrice.toLocaleString(locale === "vi" ? "vi-VN" : "en-US")} {locale === "vi" ? "đ" : "$"}</span>
                 </div>
               </div>
-              <button onClick={handleCheckout} className={styles.checkoutButton}>
+              <button onClick={handleCheckout} type="button" className={styles.checkoutButton}>
                 {tCart("checkout")}
               </button>
               <p className={styles.shippingNote}>{tCart("shippingNote")}</p>
@@ -118,12 +123,37 @@ function CartItem({
     image: string;
     size: string;
     material: string;
+    color?: string;
+    fabric?: string;
   };
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
 }) {
   const tCart = useTranslations("Cart");
   const [quantity, setQuantity] = useState(item.quantity || 1);
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      const favoritesList = JSON.parse(storedFavorites);
+      const isProductFavorited = favoritesList.some((fav: any) => fav.id === item.id);
+      setIsFavorited(isProductFavorited);
+    }
+  }, [item.id]);
+
+  const handleFavorite = () => {
+    const storedFavorites = localStorage.getItem("favorites");
+    let favoritesList = storedFavorites ? JSON.parse(storedFavorites) : [];
+    if (isFavorited) {
+      favoritesList = favoritesList.filter((fav: any) => fav.id !== item.id);
+      setIsFavorited(false);
+    } else {
+      favoritesList.push(item);
+      setIsFavorited(true);
+    }
+    localStorage.setItem("favorites", JSON.stringify(favoritesList));
+  };
 
   const handleDecrease = () => {
     if (quantity > 1) {
@@ -151,14 +181,21 @@ function CartItem({
       <div className={styles.cartItemDetails}>
         <h3>{item.name}</h3>
         <p>{item.price.toLocaleString("vi-VN")} đ</p>
-        <p>
-          {tCart("material")}: {item.material || "N/A"}
-        </p>
+        {item.fabric && (
+          <p>
+            {tCart("fabric")}: {item.fabric}
+          </p>
+        )}
         <p>
           {tCart("size")}: {item.size || "N/A"}
         </p>
-        <div className={styles.favorite}>
-          <i className="bi bi-heart"></i>
+        {item.color && (
+          <p>
+            {tCart("color")}: {item.color}
+          </p>
+        )}
+        <div className={styles.favorite} onClick={handleFavorite} style={{ color: isFavorited ? "#ff6f61" : "#ccc" }}>
+          <i className={isFavorited ? "bi bi-heart-fill" : "bi bi-heart"}></i>
           <span>{tCart("addToFavorites")}</span>
         </div>
         <div className={styles.quantitySelector}>

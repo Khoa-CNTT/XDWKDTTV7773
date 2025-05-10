@@ -5,84 +5,85 @@ import Link from "next/link";
 import { useTranslations } from "next-intl"; // Xóa useLocale vì không cần nữa
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSession, signOut } from "next-auth/react";
 import styles from "./Sidebar.module.css";
+import { useAuth } from "../context/AuthContext";
 
 const Sidebar = () => {
   const t = useTranslations("Profile");
   const router = useRouter();
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    // Kiểm tra session từ next-auth thay vì localStorage
-    if (session?.user?.name) {
-      setUserName(session.user.name);
-    } else {
-      setUserName("");
-    }
-
-    // Giữ logic localStorage hiện có (như yêu cầu không xóa)
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const user = JSON.parse(storedUser);
-        setUserName(user?.name || "User");
-      } catch (error) {
-        console.error("Error parsing user data from localStorage:", error);
-        setUserName("User");
-      }
-    } else {
-      setUserName("");
-    }
-  }, [session]);
+  const { user, isAuthenticated, logout } = useAuth();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogout = async () => {
-    // Xóa localStorage (giữ nguyên logic hiện có)
-    localStorage.removeItem("user");
-    // Sử dụng signOut từ next-auth để đăng xuất
-    await signOut({ redirect: false }); // Đăng xuất mà không tự động chuyển hướng
-    router.push("/"); // Chuyển hướng về trang chính /
+    await logout();
+    router.push("/");
   };
 
-  const isActive = (path: string) => pathname === path; // Giữ nguyên hàm isActive, không cần locale
+  const handleLogoutClick = () => setShowLogoutModal(true);
+  const handleCancelLogout = () => setShowLogoutModal(false);
+  const handleConfirmLogout = () => {
+    setShowLogoutModal(false);
+    handleLogout();
+  };
+
+  const isActive = (path: string) => pathname === path;
 
   return (
     <div className={styles.sidebar}>
       <h2 className={styles.greeting}>
         {t("greeting")} <br />
-        {userName || t("notLoggedIn")}
+        {isAuthenticated && user?.name ? (
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+            <i className="bi bi-person-circle" style={{ fontSize: 32, color: '#333', borderRadius: '50%', background: '#f5f5f5', padding: 2, marginRight: 6 }}></i>
+            {user.name}
+          </span>
+        ) : (
+          t("notLoggedIn")
+        )}
       </h2>
       <nav className={styles.nav}>
         <Link
-          href="/profile/my-order" // Xóa locale, giữ nguyên đường dẫn gốc
+          href="/profile/my-order"
           className={`${styles.navItem} ${isActive("/profile/my-order") ? styles.active : ""}`}
         >
           <i className="bi bi-box-seam"></i> {t("myOrders")}
         </Link>
         <Link
-          href="/profile/my-info" // Xóa locale
+          href="/profile/my-info"
           className={`${styles.navItem} ${isActive("/profile/my-info") ? styles.active : ""}`}
         >
           <i className="bi bi-person"></i> {t("myInfo")}
         </Link>
         <Link
-          href="/profile/favorites" // Xóa locale
+          href="/profile/favorites"
           className={`${styles.navItem} ${isActive("/profile/favorites") ? styles.active : ""}`}
         >
           <i className="bi bi-heart"></i> {t("favorites")}
         </Link> 
         <Link
-          href="/profile/lien-he" // Xóa locale
+          href="/profile/lien-he"
           className={`${styles.navItem} ${isActive("/profile/lien-he") ? styles.active : ""}`}
         >
           <i className="bi bi-envelope"></i> {t("contact")}
         </Link>
-        <button onClick={handleLogout} className={styles.navItem}>
+        <button onClick={handleLogoutClick} className={styles.navItem}>
           <i className="bi bi-box-arrow-right"></i> {t("logout")}
         </button>
       </nav>
+      {showLogoutModal && (
+        <div className={styles.overlayLogout}>
+          <div className={styles.modalLogout}>
+            <button className={styles.closeBtn} onClick={handleCancelLogout}>×</button>
+            <h2 className={styles.modalTitle}>Đăng xuất</h2>
+            <p className={styles.modalMessage}>Bạn có muốn đăng xuất không?</p>
+            <div className={styles.actions}>
+              <button className={styles.cancelBtn} onClick={handleCancelLogout}>Không</button>
+              <button className={styles.confirmBtn} onClick={handleConfirmLogout}>Có</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

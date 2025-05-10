@@ -8,23 +8,23 @@ import { useState, useCallback, useMemo, useEffect } from "react";
 import styles from "./Header.module.css";
 import { useCart } from "../context/CartContext";
 import { usePathname, useRouter } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
 import AuthModal from "./AuthModal";
 import { useTranslations, useLocale } from "next-intl";
 import SearchBar from "./SearchBar";
 import Image from "next/image";
 import { flatProducts, Product } from "../mua-sam/data/products";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown điều hướng "MUA SẮM"
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
   const { cartItems } = useCart();
-  const { data: session, status } = useSession();
   const pathname = usePathname();
   const router = useRouter();
   const tHeader = useTranslations("Header");
   const locale = useLocale();
+  const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
 
   // Tính tổng số lượng sản phẩm trong giỏ hàng
   const cartItemCount = useMemo(
@@ -53,8 +53,7 @@ export default function Header() {
     "ao-tank": "Áo Tank"
   };
 
-  // Lấy subCategory thực tế từ dữ liệu sản phẩm (giả sử bạn import flatProducts từ data/products)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // Lấy subCategory thực tế từ dữ liệu sản phẩm 
   const getSubCategories = (cat: string) => {
     const productsOfCat = flatProducts.filter((p: Product) => p.category === cat);
     const uniqueSubs = Array.from(new Set(productsOfCat.map((p: Product) => p.subCategory)));
@@ -135,49 +134,25 @@ export default function Header() {
 
         {/* Actions (Profile, Cart, Language) */}
         <div className={styles.actions}>
-          {status === "loading" ? (
-            <span>{tHeader("loading")}</span>
-          ) : (
-            <>
-              {status === "authenticated" ? (
-                <div className={styles.avatarWrapper}>
-                  <button
-                    onClick={handleAvatarClick}
-                    className={styles.actionButton}
-                    aria-label={tHeader("myOrders")}
-                  >
-                    <Image
-                      src={session.user?.image || "/default-avatar.png"}
-                      alt={session.user?.name || "User"}
-                      width={40}
-                      height={40}
-                      className={styles.avatar}
-                    />
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => openAuthModal("login")}
-                  className={styles.actionButton}
-                  aria-label={tHeader("login")}
-                >
-                  <FaUser />
-                </button>
+          <button
+            onClick={() => openAuthModal("login")}
+            className={styles.actionButton}
+            aria-label={tHeader("login")}
+          >
+            <FaUser size={33} className={styles.avatar} />
+          </button>
+          <div className={styles.cartWrapper}>
+            <button
+              onClick={handleCartClick}
+              className={styles.actionButton}
+              aria-label={tHeader("cart")}
+            >
+              <i className={`bi bi-cart ${styles.avatar}`}></i>
+              {cartItemCount > 0 && (
+                <span className={styles.cartBadge}>{cartItemCount}</span>
               )}
-              <div className={styles.cartWrapper}>
-                <button
-                  onClick={handleCartClick}
-                  className={styles.actionButton}
-                  aria-label={tHeader("cart")}
-                >
-                  <i className="bi bi-cart"></i>
-                  {cartItemCount > 0 && (
-                    <span className={styles.cartBadge}>{cartItemCount}</span>
-                  )}
-                </button>
-              </div>
-            </>
-          )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -283,6 +258,19 @@ export default function Header() {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         initialTab={authMode}
+        onForgotPassword={() => {
+          setIsAuthModalOpen(false);
+          setIsForgotModalOpen(true);
+        }}
+      />
+      <ForgotPasswordModal
+        isOpen={isForgotModalOpen}
+        onClose={() => setIsForgotModalOpen(false)}
+        onBackToLogin={() => {
+          setIsForgotModalOpen(false);
+          setIsAuthModalOpen(true);
+          setAuthMode("login");
+        }}
       />
     </header>
   );

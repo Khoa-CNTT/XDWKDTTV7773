@@ -147,6 +147,12 @@ export default function ProductDetailClient({
     setSelectedSize(size);
   }, []);
 
+  const [selectedFabric, setSelectedFabric] = useState<string>("");
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const fabricOptions = [
+    "Vải kaki", "Vải lụa", "Vải cotton", "Vải Linen", "Vải Chiffon", "Vải Denim"
+  ];
+
   const handleAddToCart = useCallback(() => {
     if (!selectedSize) {
       toast.error(tProduct("selectSize"), {
@@ -169,7 +175,9 @@ export default function ProductDetailClient({
       quantity,
       image: product.image,
       size: selectedSize || "Chưa chọn",
-      material: product.material || "Chưa cập nhật"
+      material: product.material || "Chưa cập nhật",
+      color: selectedColor || "",
+      fabric: selectedFabric || "",
     };
 
     addToCart(cartItem);
@@ -190,7 +198,7 @@ export default function ProductDetailClient({
         theme: "light",
       });
     }
-  }, [selectedSize, product, quantity, addToCart, tProduct, toastsShown]);
+  }, [selectedSize, product, quantity, addToCart, tProduct, toastsShown, selectedColor, selectedFabric]);
 
   const handleAddRelatedToCart = useCallback((relatedProduct: Product) => {
     const cartItem = {
@@ -295,57 +303,75 @@ export default function ProductDetailClient({
               {product.price ? formatPrice(product.price) : tProduct("contactForPrice")}
             </p>
 
-            <div className={styles.colors}>
-              <label>{tProduct("material")}:</label>
-              <div className={styles.colorWrapper}>
-                {(product.colors || []).map((color: string, index: number) => (
-                  <span
-                    key={index}
-                    className={styles.colorOption}
-                    style={{
-                      backgroundColor:
-                        color.toLowerCase() === "đen"
-                          ? "#000000"
-                          : color.toLowerCase() === "xám đậm"
-                          ? "#4a4a4a"
-                          : color.toLowerCase() === "xám nhạt"
-                          ? "#d3d3d3"
-                          : color.toLowerCase() === "trắng"
-                          ? "#ffffff"
-                          : color.toLowerCase() === "xanh navy"
-                          ? "#1a2526"
-                          : color.toLowerCase() === "đỏ rượu"
-                          ? "#5f0000"
-                          : color.toLowerCase() === "trắng ngọc trai"
-                          ? "#f0f0f0"
-                          : color.toLowerCase() === "đen ánh kim"
-                          ? "#1c2526"
-                          : color.toLowerCase() === "xanh lá"
-                          ? "#2e8b57"
-                          : color.toLowerCase() === "hồng"
-                          ? "#ff69b4"
-                          : color.toLowerCase() === "đỏ"
-                          ? "#ff0000"
-                          : color.toLowerCase() === "vàng ánh kim"
-                          ? "#b8860b"
-                          : color.toLowerCase() === "bạc"
-                          ? "#c0c0c0"
-                          : color.toLowerCase() === "be"
-                          ? "#f5f5f5dc"
-                          : color.toLowerCase() === "xanh dương"
-                          ? "#4682b4"
-                          : color.toLowerCase() === "hồng phấn"
-                          ? "#ffb6c1"
-                          : color.toLowerCase() === "vàng"
-                          ? "#ffd700"
-                          : color.toLowerCase() === "tím"
-                          ? "#800080"
-                          : color.toLowerCase(),
-                    }}
-                  />
+            <div className={styles.fabricSection}>
+              <label htmlFor="fabric-select" style={{ color: '#000' }}>Chất liệu:</label>
+              <select
+                id="fabric-select"
+                value={selectedFabric}
+                onChange={e => setSelectedFabric(e.target.value)}
+                className={styles.fabricSelect}
+                style={{ color: '#000', background: '#fff' }}
+              >
+                <option value="">-- Chất liệu --</option>
+                {fabricOptions.map(fabric => (
+                  <option key={fabric} value={fabric} style={{ color: '#000' }}>{fabric}</option>
                 ))}
-              </div>
+              </select>
             </div>
+            {product.colors && product.colors.length > 0 && (
+              <div className={styles.colorsSection}>
+                <label style={{ color: '#000' }}>Màu sắc:</label>
+                <div className={styles.colorWrapper}>
+                  {product.colors.map((color: string, index: number) => (
+                    <span
+                      key={index}
+                      className={`${styles.colorOption} ${selectedColor === color ? styles.selectedColor : ""}`}
+                      style={{
+                        backgroundColor:
+                          color.toLowerCase() === "đen"
+                            ? "#000000"
+                            : color.toLowerCase() === "xám đậm"
+                            ? "#4a4a4a"
+                            : color.toLowerCase() === "xám nhạt"
+                            ? "#d3d3d3"
+                            : color.toLowerCase() === "trắng"
+                            ? "#ffffff"
+                            : color.toLowerCase() === "xanh navy"
+                            ? "#1a2526"
+                            : color.toLowerCase() === "đỏ rượu"
+                            ? "#5f0000"
+                            : color.toLowerCase() === "trắng ngọc trai"
+                            ? "#f0f0f0"
+                            : color.toLowerCase() === "đen ánh kim"
+                            ? "#1c2526"
+                            : color.toLowerCase() === "xanh lá"
+                            ? "#2e8b57"
+                            : color.toLowerCase() === "hồng"
+                            ? "#ff69b4"
+                            : color.toLowerCase() === "đỏ"
+                            ? "#ff0000"
+                            : color.toLowerCase() === "vàng ánh kim"
+                            ? "#b8860b"
+                            : color.toLowerCase() === "bạc"
+                            ? "#c0c0c0"
+                            : color.toLowerCase() === "be"
+                            ? "#f5f5f5dc"
+                            : color.toLowerCase() === "xanh dương"
+                            ? "#4682b4"
+                            : color.toLowerCase() === "hồng phấn"
+                            ? "#ffb6c1"
+                            : color.toLowerCase() === "vàng"
+                            ? "#ffd700"
+                            : color.toLowerCase() === "tím"
+                            ? "#800080"
+                            : color.toLowerCase(),
+                      }}
+                      onClick={() => setSelectedColor(color)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className={styles.sizes}>
               <label>{tProduct("size")}:</label>
@@ -361,15 +387,12 @@ export default function ProductDetailClient({
                     {size}
                   </button>
                 ))}
-                <Link href="/size-guide" className={styles.sizeGuide}>
-                  <i className="bi bi-rulers"></i> {tProduct("sizeGuide")}
-                </Link>
               </div>
             </div>
 
-            <button className={styles.madeToMeasure}>
+            <Link href="/SizeGuide" className={styles.madeToMeasure}>
               {tProduct("madeToMeasure")}
-            </button>
+            </Link>
 
             <div className={styles.quantity}>
               <label>{tProduct("quantity")}:</label>

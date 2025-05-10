@@ -38,16 +38,18 @@ export default function ContactPage() {
 
   return (
     <div className={styles.mainContent}>
-      <h1 className={styles.pageTitle}>{t("contact")}</h1>
+      <h1 className={styles.pageTitle}><i className="bi bi-envelope"></i> {t("contact")}</h1>
       <div className={styles.contactContainer}>
         <div className={styles.contactInfo}>
           <div className={styles.infoItem}>
-            <span className={styles.icon}>📞</span>
-            <p>{t("phone")}: +84 0919345227</p>
+            <i className="bi bi-telephone"></i>
+            <span>Gọi ngay</span>
+            <p>+84 0919345227</p>
           </div>
           <div className={styles.infoItem}>
-            <span className={styles.icon}>✉️</span>
-            <p>{t("email")}: info@yalycouture.com</p>
+            <i className="bi bi-envelope"></i>
+            <span>Để lại lời nhắn</span>
+            <p>info@thetheliacouture.com</p>
           </div>
           <h2 className={styles.sectionTitle}>{t("connectWithUs")}</h2>
           <div className={styles.socialIcons}>
@@ -70,58 +72,27 @@ export default function ContactPage() {
         </div>
         <div className={styles.contactForm}>
           <h2 className={styles.sectionTitle}>{t("haveAQuestion")}</h2>
-          <form onSubmit={handleSubmit} className={styles.form}>
+          <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
             <div className={styles.inputGroup}>
               <label>{t("email")} <span className={styles.required}>*</span></label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="abc@gmail.com"
-                className={styles.input}
-                required
-              />
+              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="abc@gmail.com" className={styles.input} required />
             </div>
             <div className={styles.inputRow}>
               <div className={styles.inputGroup}>
                 <label>{t("fullName")} <span className={styles.required}>*</span></label>
-                <input
-                  type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  placeholder={t("fullNamePlaceholder")}
-                  className={styles.input}
-                  required
-                />
+                <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder={t("fullNamePlaceholder")}
+                  className={styles.input} required />
               </div>
               <div className={styles.inputGroup}>
                 <label>{t("phone")} <span className={styles.required}>*</span></label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+01(0)-0000000000"
-                  className={styles.input}
-                  required
-                />
+                <input type="text" name="phone" value={formData.phone} onChange={handleChange} placeholder="+01(0)-0000000000" className={styles.input} required />
               </div>
             </div>
             <div className={styles.inputGroup}>
               <label>{t("message")} <span className={styles.required}>*</span></label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                className={styles.textarea}
-                required
-              />
+              <textarea name="message" value={formData.message} onChange={handleChange} className={styles.textarea} required />
             </div>
-            <button type="submit" className={styles.submitButton}>
-              {t("submitMessage")} <span className={styles.arrow}>➔</span>
-            </button>
+            <button type="submit" className={styles.submitButton}>{t("submitMessage")} <span className={styles.arrow}>➔</span></button>
           </form>
         </div>
       </div>

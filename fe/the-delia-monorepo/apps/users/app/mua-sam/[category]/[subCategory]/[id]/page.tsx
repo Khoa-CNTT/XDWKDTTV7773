@@ -4,8 +4,9 @@ import HeaderWrapper from "../../../../components/HeaderWrapper";
 import Footer from "../../../../components/Footer";
 import SocialIcons from "../../../../components/SocialIcons";
 import ProductDetailClient from "./ProductDetailClient";
-import { products } from "../../../data/products"; // Sửa import để lấy products từ app/mua-sam/data/products.ts
+import { products } from "../../../data/products";
 import styles from "./ProductDetail.module.css";
+import { Metadata } from "next";
 
 type Category = "nam" | "nu" | "hang-moi";
 
@@ -33,8 +34,18 @@ const subCategories: Record<Category, { name: string; slug: string }[]> = {
   ],
 };
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { category: Category; subCategory: string; id: string; locale: string };
+}): Promise<Metadata> {
+  return {
+    title: `THE DELIA COUTURE`,
+  };
+}
+
 export default async function ProductDetailPage({
-  params: { category, subCategory, id, locale },
+  params,
 }: {
   params: { category: Category; subCategory: string; id: string; locale: string };
 }) {
@@ -43,15 +54,15 @@ export default async function ProductDetailPage({
   const tHome = await getTranslations("Home");
 
   // Tìm sản phẩm
-  const categoryData = products[category]; // Sửa để sử dụng products
+  const categoryData = products[params.category];
   if (!categoryData) {
     return <div>{tProduct("productNotFound")}</div>;
   }
 
   // Kiểm tra subCategory hợp lệ
-  const currentCategorySubCategories = subCategories[category] || [];
+  const currentCategorySubCategories = subCategories[params.category] || [];
   const isValidSubCategory = currentCategorySubCategories.some(
-    (subCat) => subCat.slug === subCategory
+    (subCat) => subCat.slug === params.subCategory
   );
   if (!isValidSubCategory) {
     return <div>{tProduct("subCategoryNotFound")}</div>;
@@ -59,7 +70,7 @@ export default async function ProductDetailPage({
 
   // Tìm sản phẩm dựa trên category, subCategory và id
   const product = categoryData.find(
-    (p: { id: string; subCategory: string }) => p.id === id && p.subCategory === subCategory
+    (p: { id: string; subCategory: string }) => p.id === params.id && p.subCategory === params.subCategory
   );
   if (!product) {
     return <div>{tProduct("productNotFound")}</div>;
@@ -67,7 +78,7 @@ export default async function ProductDetailPage({
 
   // Tìm tên mục con
   const subCategoryName = currentCategorySubCategories.find(
-    (subCat) => subCat.slug === subCategory
+    (subCat) => subCat.slug === params.subCategory
   )?.name;
 
   // Breadcrumb
@@ -80,17 +91,16 @@ export default async function ProductDetailPage({
   const breadcrumb = [
     { label: tHome("home"), href: "/" },
     { label: tHome("shop"), href: "/mua-sam" },
-    { label: categoryTitles[category], href: `/mua-sam/${category}` },
-    { label: subCategoryName || subCategory, href: `/mua-sam/${category}/${subCategory}` },
+    { label: categoryTitles[params.category], href: `/mua-sam/${params.category}` },
+    { label: subCategoryName || params.subCategory, href: `/mua-sam/${params.category}/${params.subCategory}` },
     { label: product.name, href: null },
   ];
 
   return (
     <div className={styles.container}>
-      <HeaderWrapper messages={messages} locale={locale} />
+      <HeaderWrapper messages={messages} locale={params.locale} />
       <ProductDetailClient product={product} breadcrumb={breadcrumb} />
       <SocialIcons />
-      <Footer />
     </div>
   );
 }

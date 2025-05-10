@@ -1,4 +1,3 @@
- 
 /* app/layout.tsx */
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
@@ -7,6 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { NextIntlClientProvider, createTranslator } from "next-intl";
 import ClientProviders from "./ClientProviders";
 import { FavoritesProvider } from "./context/FavoritesContext";
+import Footer from "./components/Footer";
 
 async function loadMessages(locale: string) {
   try {
@@ -48,6 +48,7 @@ export default async function RootLayout({
           <NextIntlClientProvider locale={locale} messages={messages}>
             <FavoritesProvider>
               {children}
+              <Footer />
               <ToastContainer
                 position="top-right" 
                 autoClose={3000} 

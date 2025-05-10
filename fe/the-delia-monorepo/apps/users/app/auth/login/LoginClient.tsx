@@ -5,7 +5,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
-import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
@@ -33,24 +32,36 @@ export default function LoginClient({ locale }: LoginClientProps) {
     }
 
     setLoading(true);
-    const result = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
-
-    setLoading(false);
-    if (result?.error) {
-      setError(t("invalidCredentialsError"));
-    } else {
-      toast.success(t("loginSuccess"));
-      router.push(redirectUrl);
+    try {
+      // Tạm thời bỏ qua việc gọi API
+      console.log("Login data:", { email, password });
+      
+      // Giả lập đăng nhập thành công
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
+    } catch (err: any) {
+      setError(err.message || t("errorUnexpected"));
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSocialLogin = (provider: string) => {
     setLoading(true);
-    signIn(provider, { callbackUrl: redirectUrl });
+    try {
+      // Tạm thời bỏ qua việc gọi API
+      console.log(`Social login (${provider}) data`);
+      
+      // Giả lập đăng nhập thành công
+      setTimeout(() => {
+        router.push(redirectUrl);
+      }, 1000);
+    } catch (err: any) {
+      setError(err.message || t("errorUnexpected"));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -96,7 +107,7 @@ export default function LoginClient({ locale }: LoginClientProps) {
           />
         </div>
         {error && <p className={styles.error}>{error}</p>}
-        <Link href="/forgot-password" className={styles.forgotPassword}>
+        <Link href="/auth/forgot-password" className={styles.forgotPassword}>
           {t("forgotPassword")}
         </Link>
         <button type="submit" className={styles.submitButton} disabled={loading}>

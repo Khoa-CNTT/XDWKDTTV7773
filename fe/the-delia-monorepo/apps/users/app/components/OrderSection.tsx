@@ -3,7 +3,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "../may-do/page.module.css";
+import styles from "../register/page.module.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function OrderSection() {

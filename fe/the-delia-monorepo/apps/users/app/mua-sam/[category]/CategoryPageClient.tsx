@@ -12,6 +12,8 @@ import ProductCard from "../../components/ProductCard";
 import HeaderWrapper from "../../components/HeaderWrapper";
 import { flatProducts, Category } from "../data/products"; // Import Category
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useRouter } from "next/navigation";
+import SocialIcons from "../../components/SocialIcons";
 
 type SubCategory = {
   name: string;
@@ -33,6 +35,7 @@ export default function CategoryPageClient({
 }) {
   const t = useTranslations("MuaSam");
   const tHome = useTranslations("Home");
+  const router = useRouter();
 
   const categories = [
     { name: "NAM", slug: "nam" },
@@ -110,10 +113,18 @@ export default function CategoryPageClient({
           {tHome("shop")}
         </Link>
         <span>{" > "}</span>
-        <span>{currentCategory?.name}</span>
+        <Link href={`/mua-sam/${category}`} className={styles.breadcrumbLink}>
+          {currentCategory?.name}
+        </Link>
+        {subCategoryParam && (
+          <>
+            <span>{" > "}</span>
+            <span>
+              {subCategories[category]?.find((s) => s.slug === subCategoryParam)?.name || subCategoryParam}
+            </span>
+          </>
+        )}
       </nav>
-
-      <h1 className={styles.title}>{currentCategory?.name}</h1>
 
       <div className={styles.filterBar}>
         {categories.map((cat) => {
@@ -124,7 +135,13 @@ export default function CategoryPageClient({
                 className={`${styles.filterItem} ${
                   cat.slug === category ? styles.active : ""
                 }`}
-                onClick={() => toggleDropdown(cat.slug)}
+                onClick={() => {
+                  if (cat.slug === category) {
+                    toggleDropdown(cat.slug);
+                  } else {
+                    router.push(`/mua-sam/${cat.slug}`);
+                  }
+                }}
               >
                 <span>{cat.name}</span>
                 <i
@@ -176,96 +193,8 @@ export default function CategoryPageClient({
         )}
       </div>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContainer}>
-          <div className={styles.footerLogo}>
-            <Image src="/logo-couture.png" alt="Couture Logo" width={120} height={40} />
-            <p className={styles.tagline}>{tHome("footerTagline")}</p>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3>{tHome("footerCustomerService")}</h3>
-            <ul>
-              <li>
-                <Link href="/lien-he">{tHome("footerContact")}</Link>
-              </li>
-              <li>
-                <Link href="/faqs">{tHome("footerFAQs")}</Link>
-              </li>
-              <li>
-                <Link href="/dia-chi">{tHome("footerLocations")}</Link>
-              </li>
-              <li>
-                <Link href="/chinh-sach">{tHome("footerPolicies")}</Link>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3>{tHome("footerAbout")}</h3>
-            <ul>
-              <li>
-                <Link href="/khach-hang">{tHome("footerClients")}</Link>
-              </li>
-              <li>
-                <Link href="/chuyen-mon">{tHome("footerExpertise")}</Link>
-              </li>
-              <li>
-                <Link href="/bao-chi">{tHome("footerPress")}</Link>
-              </li>
-            </ul>
-          </div>
-          <div className={styles.footerColumn}>
-            <h3>{tHome("footerHighlights")}</h3>
-            <ul>
-              <li>
-                <Link href="/ky-niem">{tHome("footerMilestones")}</Link>
-              </li>
-              <li>
-                <Link href="/earth-essence">{tHome("footerEarthEssence")}</Link>
-              </li>
-              <li>
-                <Link href="/simplicity">{tHome("footerSimplicity")}</Link>
-              </li>
-              <li>
-                <Link href="/fashion-show">{tHome("footerFashionShow")}</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className={styles.footerSocial}>
-          <h3>{tHome("footerCommunity")}</h3>
-        </div>
-        <div className={styles.footerBottom}>
-          <p>© 2024 The delia couture ALL RIGHT RESERVED. Developed by PNL.</p>
-        </div>
-      </footer>
-
       {/* Container cố định cho các biểu tượng mạng xã hội */}
-      <div className={styles.socialIconsFixed}>
-        <a
-          href="https://wa.me/1234567890"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.socialIcon} ${styles.whatsapp}`}
-        >
-          <i className="bi bi-whatsapp"></i>
-        </a>
-        <a
-          href="https://instagram.com/yourprofile"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.socialIcon} ${styles.instagram}`}
-        >
-          <i className="bi bi-instagram"></i>
-        </a>
-        <a
-          href="/lien-he"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.socialIcon} ${styles.contact}`}
-        >
-          <i className="bi bi-question-circle"></i>
-        </a>
-      </div>
+      <SocialIcons />
     </div>
   );
 }

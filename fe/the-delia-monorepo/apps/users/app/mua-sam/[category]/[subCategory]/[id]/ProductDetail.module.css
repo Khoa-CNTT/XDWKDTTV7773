@@ -4,10 +4,10 @@
   padding: 0.5rem; /* Giảm padding tổng thể */
   width: 100%; /* Toàn màn hình */
   background-color: #fff;
-  display: flex; /* Add flex to center the content */
-  justify-content: center; /* Center the productDetail container */
-  flex-direction: column; /* Ensure sections stack vertically */
-  align-items: center; /* Center children horizontally */
+  display: flex; 
+  justify-content: center; 
+  flex-direction: column; 
+  align-items: center; 
 }
 
 .breadcrumb {
@@ -15,8 +15,8 @@
   color: #666;
   letter-spacing: 0.5px;
   margin-bottom: 0.3rem;
-  width: 100%; /* Ensure breadcrumb takes full width */
-  max-width: 700px; /* Match updated productDetail width */
+  width: 100%; 
+  max-width: 700px; 
 }
 
 .breadcrumb a {
@@ -35,15 +35,15 @@
 
 .productDetail {
   display: flex;
-  gap: 1rem; /* Increase gap slightly for better spacing, but still close */
+  gap: 1rem; 
   align-items: flex-start;
-  justify-content: center; /* Căn giữa */
-  max-width: 700px; /* Increase from 650px to 700px to accommodate larger productInfo */
-  margin-bottom: 2rem; /* Add spacing below productDetail */
+  justify-content: center; 
+  max-width: 700px; 
+  margin-bottom: 2rem; 
 }
 
 .imageGallery {
-  flex: 0 0 auto; /* Prevent growing, use natural width */
+  flex: 0 0 auto; 
   display: flex;
   gap: 0.3rem;
 }
@@ -55,8 +55,8 @@
 }
 
 .thumbnail {
-  width: 70px; /* Increase from 60px to 70px */
-  height: 105px; /* Increase from 90px to 105px */
+  width: 70px;
+  height: 105px; 
   border: 1px solid #ddd;
   border-radius: 4px;
   overflow: hidden;
@@ -161,16 +161,17 @@
 
 .colorOption {
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 1px solid #ddd;
+  border: 1.5px solid #ddd;
   cursor: pointer;
   transition: transform 0.3s ease;
+  margin-right: 6px;
 }
 
 .colorOption:hover {
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
 
 .sizes {
@@ -221,11 +222,13 @@
 .sizeGuide {
   font-size: 0.65rem;
   color: #666;
+  color: #000000;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.15rem;
   margin-top: 0.2rem; /* Slightly increase spacing above size guide link */
+  margin-top: 0.2rem; 
   transition: color 0.3s ease;
 }
 
@@ -251,6 +254,25 @@
 
 .madeToMeasure:hover {
   background: #f5f5f5; /* Nhẹ hơn so với #fff5f5 */
+  padding: 0.5rem 0;
+  margin-bottom: 0.7rem;
+  background: #f5f5f5;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 1rem;
+  color: #000 !important;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.madeToMeasure:hover {
+  background: #eaeaea;
+  border-color: #ff6f61;
+  color: #ff6f61;
 }
 
 .quantity {
@@ -328,6 +350,7 @@
 
 .addToCart:hover {
   background: #333; /* Đổi màu hover */
+  background: #000000; /* Đổi màu hover */
 }
 
 .description {
@@ -347,6 +370,11 @@
 
 .description p {
   color: #666;
+  color: #000000;
+}
+
+.description p {
+  color: #000000;
   font-size: 0.9rem;
   line-height: 1.6;
 }
@@ -363,6 +391,7 @@
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #2b2b2b;
+  color: #000000;
 }
 
 .relatedProductsList {
@@ -397,6 +426,7 @@
 .relatedProductName {
   font-size: 0.85rem;
   color: #2b2b2b;
+  color: #000000;
   margin: 0.3rem 0;
   text-transform: uppercase;
   font-weight: 600;
@@ -595,4 +625,30 @@
   .socialIcons {
     justify-content: center;
   }
+}
+
+.fabricSection {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+.fabricSection label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2b2b2b;
+  margin-right: 0.5rem;
+}
+.fabricSelect {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+.colorsSection {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+.selectedColor {
+  border: 2px solid #ff6f61 !important;
+  box-shadow: 0 0 0 2px #ffe3db;
 }

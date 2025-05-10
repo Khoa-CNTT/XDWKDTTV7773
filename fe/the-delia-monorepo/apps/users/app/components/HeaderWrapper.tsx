@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* app/components/HeaderWrapper.tsx */
 "use client";
 
@@ -7,11 +6,10 @@ import Header from "./Header";
 
 interface HeaderWrapperProps {
   locale: string;
-  messages: Record<string, any>; // Cải thiện type cho messages
+  messages: Record<string, any>; 
 }
 
 export default function HeaderWrapper({ locale, messages }: HeaderWrapperProps) {
-  // Đảm bảo locale không phải là undefined, mặc định là "vi"
   const safeLocale = locale || "vi";
 
   // Kiểm tra messages trong môi trường development
@@ -22,7 +20,6 @@ export default function HeaderWrapper({ locale, messages }: HeaderWrapperProps) 
     );
   }
 
-  // Nếu messages rỗng hoặc thiếu namespace Header, hiển thị fallback
   if (!messages || !messages.Header) {
     return (
       <header>

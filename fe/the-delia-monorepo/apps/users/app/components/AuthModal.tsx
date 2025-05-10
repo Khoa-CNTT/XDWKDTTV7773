@@ -4,11 +4,10 @@
 /* app/components/AuthModal.tsx */
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaGoogle, FaFacebookF, FaEye, FaEyeSlash } from "react-icons/fa";
-import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import styles from "./AuthModal.module.css";
@@ -16,11 +15,12 @@ import styles from "./AuthModal.module.css";
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  initialTab?: "login" | "register";
+  initialTab?: "login" | "register" | "forgot";
+  onForgotPassword?: () => void;
 }
 
-export default function AuthModal({ isOpen, onClose, initialTab = "login" }: AuthModalProps) {
-  const [activeTab, setActiveTab] = useState<"login" | "register">(initialTab);
+export default function AuthModal({ isOpen, onClose, initialTab = "login", onForgotPassword }: AuthModalProps) {
+  const [activeTab, setActiveTab] = useState<"login" | "register" | "forgot">(initialTab);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [registerName, setRegisterName] = useState("");
@@ -33,6 +33,10 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [showRegisterConfirmPassword, setShowRegisterConfirmPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotError, setForgotError] = useState("");
+  const [forgotSuccess, setForgotSuccess] = useState("");
+  const [forgotLoading, setForgotLoading] = useState(false);
 
   const t = useTranslations("Auth");
   const router = useRouter();
@@ -64,48 +68,15 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
 
       setIsLoading(true);
       try {
-        const result = await signIn("credentials", {
-          email: loginEmail,
-          password: loginPassword,
-          redirect: false,
-        });
-
-        console.log("SignIn result:", result); // Debug
-
-        if (!result) {
-          throw new Error("No response from signIn");
-        }
-
-        if (result.error) {
-          const errorMessage = result.error === "CredentialsSignin" ? t("errorInvalidCredentials") : result.error;
-          setError(errorMessage);
-          toast.error(errorMessage, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "light",
-          });
-        } else if (result.ok) {
-          setError("");
-          setTimeout(() => {
-            onClose();
-            router.push(redirectUrl || "/");
-          }, 500); // Giảm thời gian chờ để đóng modal nhanh hơn
-        } else {
-          setError(t("errorNoResponse"));
-          toast.error(t("errorNoResponse"), {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "light",
-          });
-        }
+        // Tạm thời bỏ qua việc gọi API
+        console.log("Login data:", { email: loginEmail, password: loginPassword });
+        
+        // Giả lập đăng nhập thành công
+        setError("");
+        setTimeout(() => {
+          onClose();
+          router.push(redirectUrl || "/");
+        }, 500);
       } catch (err: any) {
         const errorMessage = err.message || t("errorUnexpected");
         setError(errorMessage);
@@ -118,7 +89,7 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
           draggable: true,
           theme: "light",
         });
-        console.error("SignIn error:", err);
+        console.error("Login error:", err);
       } finally {
         setIsLoading(false);
       }
@@ -158,42 +129,14 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
 
       setIsLoading(true);
       try {
-        const response = await fetch("/api/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: registerName,
-            surname: registerSurname,
-            email: registerEmail,
-            password: registerPassword,
-          }),
+        // Tạm thời bỏ qua việc gọi API
+        console.log("Register data:", {
+          name: registerName,
+          surname: registerSurname,
+          email: registerEmail,
+          password: registerPassword,
         });
-
-        if (!response.ok) {
-          const text = await response.text();
-          console.log("Register API response:", text); // Debug
-          let errorData;
-          try {
-            errorData = JSON.parse(text);
-          } catch (parseErr) {
-            throw new Error(`Invalid JSON response from /api/register: ${text}`);
-          }
-          const errorMessage = errorData.error || t("errorRegisterFailed");
-          setError(errorMessage);
-          toast.error(errorMessage, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "light",
-          });
-          return;
-        }
-
+        
         setError("");
         setTimeout(() => {
           setActiveTab("login");
@@ -222,29 +165,15 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
     async (provider: string) => {
       setIsLoading(true);
       try {
-        const result = await signIn(provider, { callbackUrl: redirectUrl || "/" });
-
-        console.log(`Social login (${provider}) result:`, result); // Debug
-
-        if (!result) {
-          throw new Error(`No response from ${provider} signIn`);
-        }
-
-        if (result.error) {
-          const errorMessage = t("errorSocialLoginFailed", { provider });
-          setError(errorMessage);
-          toast.error(errorMessage, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "light",
-          });
-        }
+        // Tạm thời bỏ qua việc gọi API
+        console.log(`Social login (${provider}) data`);
+        
+        // Giả lập đăng nhập thành công
+        setTimeout(() => {
+          router.push(redirectUrl || "/");
+        }, 500);
       } catch (err: any) {
-        const errorMessage = err.message || t("errorSocialLoginFailed", { provider });
+        const errorMessage = err.message || t("errorUnexpected");
         setError(errorMessage);
         toast.error(errorMessage, {
           position: "top-right",
@@ -260,8 +189,23 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
         setIsLoading(false);
       }
     },
-    [redirectUrl, t]
+    [redirectUrl, t, router]
   );
+
+  const handleForgotSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!forgotEmail) {
+      setForgotError("Vui lòng nhập địa chỉ email.");
+      setForgotSuccess("");
+      return;
+    }
+    setForgotLoading(true);
+    setForgotError("");
+    setTimeout(() => {
+      setForgotSuccess("Nếu email tồn tại, hướng dẫn đặt lại mật khẩu đã được gửi.");
+      setForgotLoading(false);
+    }, 1200);
+  };
 
   if (!isOpen) return null;
 
@@ -334,9 +278,15 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
               </div>
             </div>
             {error && <p className={styles.error}>{error}</p>}
-            <Link href="/forgot-password" className={styles.forgotPassword} onClick={onClose}>
+            <button
+              type="button"
+              className={styles.forgotPassword}
+              style={{ textAlign: "right", background: "none", border: "none", color: "#666", cursor: "pointer", marginBottom: 8 }}
+              onClick={onForgotPassword}
+              disabled={isLoading}
+            >
               {t("forgotPassword")}
-            </Link>
+            </button>
             <button
               type="submit"
               className={styles.submitButton}
@@ -369,7 +319,7 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
               </div>
             </div>
           </form>
-        ) : (
+        ) : activeTab === "register" ? (
           <form onSubmit={handleRegisterSubmit} className={styles.form}>
             <div className={styles.inputGroup}>
               <label htmlFor="register-name">{t("firstNameLabel")}</label>
@@ -488,6 +438,35 @@ export default function AuthModal({ isOpen, onClose, initialTab = "login" }: Aut
                 </button>
               </div>
             </div>
+          </form>
+        ) : (
+          <form onSubmit={handleForgotSubmit} className={styles.form}>
+            <div className={styles.inputGroup}>
+              <label htmlFor="forgot-email">* Địa chỉ Email</label>
+              <input
+                id="forgot-email"
+                type="email"
+                placeholder="Địa chỉ Email"
+                value={forgotEmail}
+                onChange={(e) => setForgotEmail(e.target.value)}
+                className={styles.input}
+                disabled={forgotLoading}
+              />
+            </div>
+            {forgotError && <p className={styles.error}>{forgotError}</p>}
+            {forgotSuccess && <p style={{ color: '#2ecc40', textAlign: 'center' }}>{forgotSuccess}</p>}
+            <button type="submit" className={styles.submitButton} disabled={forgotLoading}>
+              {forgotLoading ? "Đang gửi..." : "GỬI"}
+            </button>
+            <button
+              type="button"
+              className={styles.forgotPassword}
+              style={{ textAlign: "right", background: "none", border: "none", color: "#666", cursor: "pointer", marginTop: 8 }}
+              onClick={() => setActiveTab("login")}
+              disabled={forgotLoading}
+            >
+              Quay lại đăng nhập
+            </button>
           </form>
         )}
       </div>

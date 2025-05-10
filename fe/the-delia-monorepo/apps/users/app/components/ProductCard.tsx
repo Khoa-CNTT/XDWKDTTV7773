@@ -1,5 +1,4 @@
 /* components/ProductCard.tsx */
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import Image from "next/image";
@@ -42,7 +41,7 @@ const ProductCard = ({
 
   const handleFavorite = useCallback(
     (e: React.MouseEvent) => {
-      e.stopPropagation(); // Ngăn chặn sự kiện lan tỏa
+      e.stopPropagation(); 
       if (isProcessing.current) {
         console.log("handleFavorite bị bỏ qua vì đang xử lý");
         return;
@@ -130,7 +129,7 @@ const ProductCard = ({
         )}
       </div>
       <h3 className={styles.productName}>{product.name.toUpperCase()}</h3>
-      <p className={styles.productPrice}>{formatPrice(product.price)}</p>
+      <p className={styles.productPrice}>{formatPrice(Number(product.price))}</p>
       <div className={styles.actions}>
         <AddToCartButton product={product} className={styles.addToCart} />
         <button

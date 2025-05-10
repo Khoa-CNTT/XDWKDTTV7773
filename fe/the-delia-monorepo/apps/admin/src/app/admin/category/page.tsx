@@ -64,13 +64,25 @@ export default function CategoryPage() {
     category: "",
     material: "",
     color: "",
+    categoryRoot: '', 
   });
 
   const [categories, setCategories] = useState([
-    { id: 1975, name: "Vest nam", classification: "HÀNG NAM" },
-    { id: 2025, name: "Váy Dài", classification: "HÀNG NỮ" },
-    { id: 3975, name: "Áo Thun", classification: "HÀNG NỮ" },
-    { id: 4025, name: "Quần Jeans", classification: "HÀNG MỚI" },
+    { id: 1, name: "Vest nam", classification: "HÀNG NAM" },
+    { id: 2, name: "Gi-le", classification: "HÀNG NAM" },
+    { id: 3, name: "Sơ Mi Dài/Ngắn Tay", classification: "HÀNG NAM" },
+    { id: 4, name: "Polo", classification: "HÀNG NAM" },
+    { id: 5, name: "Quần Tây", classification: "HÀNG NAM" },
+    { id: 6, name: "Quần/Áo Jeans", classification: "HÀNG NAM" },
+    { id: 7, name: "Váy Dài/Ngắn", classification: "HÀNG NỮ" },
+    { id: 8, name: "Đầm Dạo Phố", classification: "HÀNG NỮ" },
+    { id: 9, name: "Áo Dài", classification: "HÀNG NỮ" },
+    { id: 10, name: "Áo/Quần Jeans", classification: "HÀNG NỮ" },
+    { id: 11, name: "Áo Phông", classification: "HÀNG MỚI" },
+    { id: 12, name: "Quần Short Nam", classification: "HÀNG MỚI" },
+    { id: 13, name: "Quần Short Nữ", classification: "HÀNG MỚI" },
+    { id: 14, name: "Áo Len Nam/Nữ", classification: "HÀNG MỚI" },
+    { id: 15, name: "Áo Tank Nam/Nữ", classification: "HÀNG MỚI" },
   ]);
 
 
@@ -126,12 +138,18 @@ export default function CategoryPage() {
   };
 
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === 'category' && {
+        categoryRoot: categoryMap[value] || '',
+      }),
+    }));
   };
+  
 
   const resetForm = () => {
     setFormData({
@@ -145,6 +163,7 @@ export default function CategoryPage() {
       category: "",
       material: "",
       color: "",
+      categoryRoot: '', 
     });
   };
 
@@ -178,9 +197,31 @@ export default function CategoryPage() {
       category: product.category,
       material: product.material,
       color: product.color,
+      categoryRoot: categoryMap[product.category] || '',
     });
     setIsEditing(true);
   };
+
+  const categoryMap: Record<string, string> = {
+    'Vest-Nam': 'HÀNG NAM',
+    'Ghi-Lê': 'HÀNG NAM',
+    'Sơ Mi Dài/Ngắn Tay': 'HÀNG NAM',
+    'PoLo': 'HÀNG NAM',
+    'Quần Tây': 'HÀNG NAM',
+    'Quần/Áo Jeans': 'HÀNG NAM',
+  
+    'VÁY NGẮN/DÀI': 'HÀNG NỮ',
+    'ĐẦM DẠO PHỐ': 'HÀNG NỮ',
+    'ÁO DÀI': 'HÀNG NỮ',
+    'ÁO/QUẦN JEANS': 'HÀNG NỮ',
+  
+    'ÁO PHÔNG': 'HÀNG MỚI',
+    'QUẦN SHORT NAM': 'HÀNG MỚI',
+    'QUẦN SHORT NỮ': 'HÀNG MỚI',
+    'ÁO TANK NAM/NỮ': 'HÀNG MỚI',
+    'ÁO LEN NAM/NỮ': 'HÀNG MỚI',
+  };
+  
 
   const handleSaveEdit = () => {
     const updated = products.map((p) =>
@@ -317,27 +358,36 @@ const filtered = products.filter((p) => {
               onChange={handleChange}
               required
             >
-              <option value="">Chọn danh mục</option>
+              <option value="">Chọn danh mục con</option>
               <optgroup label="HÀNG NAM">
                 <option value="Vest-Nam">Vest-Nam</option>
                 <option value="Ghi-Lê">Ghi-Lê</option>
                 <option value="Sơ Mi Dài/Ngắn Tay">Sơ Mi Dài/Ngắn Tay</option>
                 <option value="PoLo">Polo</option>
                 <option value="Quần Tây">Quần Tây</option>
+                <option value="Quần/Áo Jeans">Quần/Áo Jeans</option>
               </optgroup>
               <optgroup label="HÀNG NỮ">
                 <option value="VÁY NGẮN/DÀI">VÁY NGẮN/DÀI</option>
-                <option value="ÁO THUN">ÁO THUN</option>
-                <option value="ĐỒ NGỦ">ĐỒ NGỦ</option>
+                <option value="ĐẦM DẠO PHỐ">ĐẦM DẠO PHỐ</option>
                 <option value="ÁO DÀI">ÁO DÀI</option>
+                <option value="ÁO/QUẦN JEANS ">ÁO/QUẦN JEANS</option>
               </optgroup>
               <optgroup label="HÀNG MỚI">
                 <option value="ÁO PHÔNG">ÁO PHÔNG</option>
-                <option value="QUẦN SHORT">QUẦN SHORT</option>
-                <option value="ÁO/QUẦN JEAN">ÁO/QUẦN JEAN</option>
-                <option value="ÁO ẤM PHAO">ÁO ẤM PHAO</option>
+                <option value="QUẦN SHORT NAM">QUẦN SHORT NAM</option>
+                <option value="QUẦN SHORT NỮ">QUẦN SHORT NỮ</option>
+                <option value="ÁO TANK NAM/NỮ">ÁO TANK NAM/NỮ</option>
+                <option value="ÁO LEN NAM/NỮ">ÁO LEN NAM/NỮ</option>
               </optgroup>
             </select>
+            <input
+                name="categoryRoot"
+                placeholder="Danh mục gốc"
+                value={formData.categoryRoot}
+                readOnly
+                className={styles.readOnlyInput}
+              />
             <div className={styles.formActions}>
               <button type="submit" className={styles.submitBtn}>
                 Thêm Sản Phẩm
@@ -514,6 +564,9 @@ const filtered = products.filter((p) => {
                 <option value="">Chọn danh mục</option>
                 {/* same optgroup here */}
               </select>
+
+             
+
               <div className={styles.modalActions}>
                 <button onClick={handleSaveEdit} className={styles.submitBtn}>
                   Lưu
@@ -543,7 +596,7 @@ const filtered = products.filter((p) => {
                   name="name"
                   value={newCategory.name}
                   onChange={handleCategoryChange}
-                  placeholder="Tên sản phẩm mới"
+                  placeholder="Tên Danh Mục mới"
                 />
 
                 {/* Khung nhập danh mục mới */}
@@ -552,26 +605,8 @@ const filtered = products.filter((p) => {
                   name="classification"
                   value={newCategory.classification}
                   onChange={handleCategoryChange}
-                  placeholder="Tên danh mục mới"
+                  placeholder="Tên Sản Phẩm mới"
                 />
-
-                {/* Khung thả xuống để chọn tất cả danh mục */}
-                <select
-                  name="classification"
-                  value={newCategory.classification}
-                  onChange={handleCategoryChange}
-                >
-                  <option value="">Chọn danh mụC</option>
-                  {Array.from(
-                    new Set(
-                      categories.map((category) => category.classification)
-                    )
-                  ).map((uniqueClassification, index) => (
-                    <option key={index} value={uniqueClassification}>
-                      {uniqueClassification}
-                    </option>
-                  ))}
-                </select>
 
                 {/* Nút thêm */}
                 <div className={styles.buttonGroup}>

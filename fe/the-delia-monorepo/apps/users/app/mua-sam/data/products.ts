@@ -19,11 +19,11 @@ type SubCategory =
   | "ao-tank";
 
 export type Product = {
-  quantity: number;
   id: string;
   name: string;
-  price: number;
+  price: number | string;
   image: string;
+  quantity: number;
   category: Category;
   subCategory: SubCategory;
   description?: string;

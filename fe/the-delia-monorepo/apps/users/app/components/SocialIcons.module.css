@@ -1,11 +1,12 @@
 /* app/components/SocialIcons.module.css */
 .floatingIcons {
     position: fixed;
-    bottom: 20px;
+    bottom: 180px;
     right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    align-items: center;
   }
   
   .floatingIcon {
@@ -23,12 +24,12 @@
   
   .floatingIcons a:nth-child(1),
   .floatingIcons a:nth-child(1):hover {
-    background: #25D366;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
   }
   
   .floatingIcons a:nth-child(2),
   .floatingIcons a:nth-child(2):hover {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background: #25D366;
   }
   
   .floatingIcons a:nth-child(3),

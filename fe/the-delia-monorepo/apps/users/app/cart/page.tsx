@@ -23,7 +23,6 @@ export default async function CartPage({ params }: { params: { locale?: string }
         <CartWrapper messages={messages} locale={locale} />
       </main>
       <SocialIcons />
-      <Footer />
     </div>
   );
 }

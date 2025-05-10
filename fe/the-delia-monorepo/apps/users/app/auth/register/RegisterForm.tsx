@@ -27,7 +27,7 @@ export default function Register() {
       return;
     }
     setError("");
-    // Xử lý logic đăng ký (gọi API hoặc next-auth)
+    // Tạm thời chỉ log thông tin đăng ký
     console.log("Đăng ký với:", { name, surname, email, password });
   };
 

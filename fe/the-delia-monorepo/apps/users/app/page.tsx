@@ -8,9 +8,8 @@ import FloatingIcons from "./components/FloatingIcons";
 import ProductCard from "./components/ProductCard";
 import { products } from "./mua-sam/data/products"; 
 import heroImage from "../public/hero-image.jpg";
-import Footer from './components/Footer';
+import HeroSlider from "./components/HeroSlider";
 import { Product } from "./types/product";
-import { useSearchParams } from "next/navigation";
 
 function removeAccents(str: string) {
   return str
@@ -22,7 +21,7 @@ function removeAccents(str: string) {
 }
 
 export const metadata = {
-  title: "the delia couture - Thời trang cao cấp",
+  title: "THE DELIA COUTURE",
   description: "Khám phá các bộ sưu tập thời trang độc đáo từ the delia couture.",
 };
 
@@ -36,10 +35,13 @@ export default async function HomePage({
   const messages = await getMessages();
   const t = await getTranslations("Home");
   
-  const query = searchParams?.query || "";
+  const query = typeof searchParams?.query === 'string' ? searchParams.query : "";
   const normalizedQuery = removeAccents(query);
 
-  const allProducts: Product[] = Object.values(products).flat();
+  const allProducts: Product[] = Object.values(products).flat().map(product => ({
+    ...product,
+    price: typeof product.price === 'string' ? parseFloat(product.price) : product.price
+  }));
 
   const filteredProducts = normalizedQuery
     ? allProducts.filter((product) =>
@@ -47,9 +49,18 @@ export default async function HomePage({
       )
     : [];
 
-  const newArrivals = products["hang-moi"] || [];
-  const womenProducts = products["nu"] || [];
-  const menProducts = products["nam"] || [];
+  const newArrivals: Product[] = (products["hang-moi"] || []).map(product => ({
+    ...product,
+    price: typeof product.price === 'string' ? parseFloat(product.price) : product.price
+  }));
+  const womenProducts: Product[] = (products["nu"] || []).map(product => ({
+    ...product,
+    price: typeof product.price === 'string' ? parseFloat(product.price) : product.price
+  }));
+  const menProducts: Product[] = (products["nam"] || []).map(product => ({
+    ...product,
+    price: typeof product.price === 'string' ? parseFloat(product.price) : product.price
+  }));
 
   return (
     <div className={styles.container}>
@@ -74,7 +85,7 @@ export default async function HomePage({
                         style={{ display: "block", position: "relative", zIndex: 1 }}
                       >
                         <ProductCard
-                          product={product}
+                          product={product as any}
                           category={product.category}
                         />
                       </Link>
@@ -90,26 +101,7 @@ export default async function HomePage({
       ) : (
         <>
           <section className={styles.heroSection}>
-            <div className={styles.heroWrapper}>
-              <Image
-                src={heroImage}
-                alt={t("heroAlt")}
-                fill
-                priority
-                className={styles.heroImage}
-                placeholder="blur"
-              />
-              <div className={styles.heroText}>
-                <h1>{t("heroTitle")}</h1>
-              </div>
-              <div className={styles.dots}>
-                <span className={styles.dotActive}></span>
-                <span className={styles.dot}></span>
-                <span className={styles.dot}></span>
-              </div>
-              <button className={styles.arrowLeft}>❮</button>
-              <button className={styles.arrowRight}>❯</button>
-            </div>
+            <HeroSlider heroTitle={t("heroTitle")} heroAlt={t("heroAlt")} />
           </section>
           <main className={styles.main}>
             <section className={styles.newArrivalsSection}>
@@ -131,7 +123,7 @@ export default async function HomePage({
                         style={{ display: "block", position: "relative", zIndex: 1 }}
                       >
                         <ProductCard
-                          product={product}
+                          product={product as any}
                           category="hang-moi"
                         />
                       </Link>
@@ -160,7 +152,7 @@ export default async function HomePage({
                         style={{ display: "block", position: "relative", zIndex: 1 }}
                       >
                         <ProductCard
-                          product={product}
+                          product={product as any}
                           category="nu"
                         />
                       </Link>
@@ -189,7 +181,7 @@ export default async function HomePage({
                         style={{ display: "block", position: "relative", zIndex: 1 }}
                       >
                         <ProductCard
-                          product={product}
+                          product={product as any}
                           category="nam"
                         />
                       </Link>
@@ -202,7 +194,6 @@ export default async function HomePage({
           </main>
         </>
       )}
-      <Footer />
       <FloatingIcons />
     </div>
   );

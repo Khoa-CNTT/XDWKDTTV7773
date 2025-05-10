@@ -1,36 +1,45 @@
 // src/components/Footer.tsx
 import Link from "next/link";
-import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
-        {/* Phần thông tin liên hệ */}
         <div className={styles.footerSection}>
           <h3 className={styles.footerTitle}>The Delia Couture</h3>
-          <p>Địa chỉ: 47 Nguyễn Thị Minh Khai, Hội An, Việt Nam</p>
-          <p>Email: contact@thedeliacouture.com</p>
-          <p>Điện thoại: +84 123 456 789</p>
+          <p>Địa chỉ: 47 Nguyễn Thị Minh Khai, Hội An, Quảng Nam</p>
+          <p>Email: info@thedeliacouture.com</p>
+          <p>Hotline: 1900 1234</p>
+          <p>Giờ làm việc: 8:00 - 20:00</p>
         </div>
 
-        {/* Phần liên kết chính sách */}
         <div className={styles.footerSection}>
-          <h3 className={styles.footerTitle}>Liên kết</h3>
+          <h3 className={styles.footerTitle}>Liên kết nhanh</h3>
           <div className={styles.links}>
-            <Link href="/privacy">Chính sách bảo mật</Link>
-            <Link href="/terms">Điều khoản dịch vụ</Link>
-            <Link href="/contact">Liên hệ với chúng tôi</Link>
+            <Link href="/about">Về chúng tôi</Link>
+            <Link href="/collections">Bộ sưu tập</Link>
+            <Link href="/services">Dịch vụ</Link>
+            <Link href="/contact">Liên hệ</Link>
           </div>
         </div>
 
-        {/* Phần mạng xã hội */}
         <div className={styles.footerSection}>
-          <h3 className={styles.footerTitle}>Theo dõi chúng tôi</h3>
+          <h3 className={styles.footerTitle}>Chính sách</h3>
+          <div className={styles.links}>
+            <Link href="/privacy">Chính sách bảo mật</Link>
+            <Link href="/terms">Điều khoản dịch vụ</Link>
+            <Link href="/shipping">Chính sách vận chuyển</Link>
+            <Link href="/return">Chính sách đổi trả</Link>
+          </div>
+        </div>
+
+        <div className={styles.footerSection}>
+          <h3 className={styles.footerTitle}>Kết nối với chúng tôi</h3>
           <div className={styles.socialLinks}>
             <a
-              href="https://facebook.com/yalycouture"
+              href="https://facebook.com/thedeliacouture"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -38,7 +47,7 @@ export default function Footer() {
               <FaFacebookF className={styles.socialIcon} />
             </a>
             <a
-              href="https://instagram.com/yalycouture"
+              href="https://instagram.com/thedeliacouture"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -46,20 +55,27 @@ export default function Footer() {
               <FaInstagram className={styles.socialIcon} />
             </a>
             <a
-              href="https://twitter.com/yalycouture"
+              href="https://tiktok.com/@thedeliacouture"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Twitter"
+              aria-label="TikTok"
             >
-              <FaTwitter className={styles.socialIcon} />
+              <FaTiktok className={styles.socialIcon} />
+            </a>
+            <a
+              href="https://youtube.com/@thedeliacouture"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+            >
+              <FaYoutube className={styles.socialIcon} />
             </a>
           </div>
         </div>
       </div>
 
-      {/* Phần bản quyền */}
       <div className={styles.footerBottom}>
-        <p>&copy; 2025 The delia couture. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} The Delia Couture. All rights reserved.</p>
       </div>
     </footer>
   );
