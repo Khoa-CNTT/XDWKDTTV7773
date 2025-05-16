@@ -18,22 +18,13 @@ export default function PaymentPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [payments, setPayments] = useState<Payment[]>([
     {
-      id: 101010,
-      orderCode: "HD10001",
-      customerName: "Nguyễn Văn A",
-      product: "Vest nam cao cấp",
-      quantity: 2,
-      price: 2500000,
-      status: "CHƯA THANH TOÁN",
-    },
-    {
-      id: 201010,
-      orderCode: "HD10002",
-      customerName: "Trần Thị B",
-      product: "Áo dài cưới",
-      quantity: 1,
-      price: 3200000,
-      status: "ĐÃ THANH TOÁN",
+      id: 0,
+      orderCode: "",
+      customerName: "",
+      product: "",
+      quantity: 0,
+      price: 0,
+      status: "",
     },
   ]);
 

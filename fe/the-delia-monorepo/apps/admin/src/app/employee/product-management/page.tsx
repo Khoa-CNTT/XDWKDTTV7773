@@ -22,31 +22,18 @@ type Product = {
 export default function CategoryPage() {
   const [products, setProducts] = useState<Product[]>([
     {
-      id: 1,
-      name: "Vest-nam",
+      id: 0,
+      name: "",
       description:
-        "Vest-nam xám kèm phụ kiện cavat nơ tôn lên nét trẻ trung thanh lịch ",
-      price: "1000000",
+        "",
+      price: "",
       image:
-        "https://th.bing.com/th/id/OIP.y2sQEkr1DaeZZP2_TEOE9gDIEs?rs=1&pid=ImgDetMain",
-      quantity: 10,
-      size: "XL",
-      category: "Hàng Nam-Vest nam",
-      material: "vải cao cấp",
-      color: "xám",
-    },
-    {
-      id: 2,
-      name: "Áo dài Việt",
-      description: "Áo dài là một loại trang phục truyền thống của Việt Nam...",
-      price: "300000",
-      image:
-        "https://anhvienmimosa.com.vn/wp-content/uploads/2023/02/ao-dai-cuoi-truyen-thong-xua-21-534x800.jpg",
-      quantity: 20,
-      size: "L",
-      category: "Hàng Nữ-Áo dài",
-      material: "Lụa cao cấp",
-      color: "trắng",
+        "",
+      quantity: 0,
+      size: "",
+      category: "",
+      material: "",
+      color: "",
     },
   ]);
 

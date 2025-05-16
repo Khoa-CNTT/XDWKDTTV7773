@@ -29,34 +29,14 @@ export default function OrderPage() {
 
   const [orders, setOrders] = useState<Order[]>([
     {
-      id: 1001,
+      id: 0,
       orderCode: generateOrderCode(),
-      customerName: "Nguyễn Văn A",
-      product: "Vest đen",
-      quantity: 2,
-      price: 500000,
-      status: "Đang xử lý",
-      unit: "bộ",
-    },
-    {
-      id: 1002,
-      orderCode: generateOrderCode(),
-      customerName: "Trần Thị B",
-      product: "Áo dài",
-      quantity: 1,
-      price: 700000,
-      status: "Đã giao",
-      unit: "bộ",
-    },
-    {
-      id: 1003,
-      orderCode: generateOrderCode(),
-      customerName: "Phan Tứ",
-      product: "Áo thun",
-      quantity: 3,
-      price: 150000,
-      status: "Đang xử lý",
-      unit: "bộ",
+      customerName: "",
+      product: "",
+      quantity: 0,
+      price: 0,
+      status: "",
+      unit: "",
     },
   ]);
 
@@ -144,6 +124,17 @@ const handleAddOrder = (e: React.FormEvent) => {
     order.customerName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleStatusChange = (orderId: number, newStatus: string) => {
+    const updatedOrders = orders.map((order) =>
+      order.id === orderId ? { ...order, status: newStatus } : order
+    );
+    setOrders(updatedOrders);
+
+    // Nếu cần gọi API hoặc lưu vào backend, thêm tại đây
+    // Ví dụ:
+    // await api.updateOrderStatus(orderId, newStatus);
+  };
+
   return (
     <div className={styles.container}>
       <Header />
@@ -186,26 +177,23 @@ const handleAddOrder = (e: React.FormEvent) => {
                 <td>{order.orderCode}</td>
                 <td>{order.customerName}</td>
                 <td>{order.product}</td>
-                <td>{order.quantity} {order.unit}</td>
-                <td>{order.price.toLocaleString()}₫</td>
-                <td>{order.status}</td>
                 <td>
-                  <div className={styles.actionButtons}>
-                    <button
-                      className={styles.editBtn}
-                      onClick={() => handleOpenEdit(order)}
-                    >
-                      Cập nhật
-                    </button>
-                    <button
-                      className={styles.deleteBtn}
-                      onClick={() =>
-                        setOrders(orders.filter((o) => o.id !== order.id))
-                      }
-                    >
-                      Xóa
-                    </button>
-                  </div>
+                  {order.quantity} {order.unit}
+                </td>
+                <td>{order.price.toLocaleString()}₫</td>
+                <td>
+                  <select
+                    value={order.status}
+                    onChange={(e) =>
+                      handleStatusChange(order.id, e.target.value)
+                    }
+                    className={styles.statusDropdown}
+                  >
+                    <option value="Đang xử lý">Đang xử lý</option>
+                    <option value="Đã tiếp nhận">Đã tiếp nhận</option>
+                    <option value="Đã giao">Đã giao</option>
+                    <option value="Đã hủy">Đã hủy</option>
+                  </select>
                 </td>
               </tr>
             ))}
@@ -218,7 +206,7 @@ const handleAddOrder = (e: React.FormEvent) => {
               <h2>{isAdding ? "Thêm đơn hàng" : "Cập nhật đơn hàng"}</h2>
               <form
                 className={styles.form}
-                onSubmit={isAdding ? handleAddOrder : handleEditOrder}
+                onSubmit={isAdding ? handleAddOrder : (e) => e.preventDefault()}
               >
                 {isEditing && editingOrder && (
                   <input
@@ -288,7 +276,9 @@ const handleAddOrder = (e: React.FormEvent) => {
                 <select
                   name="status"
                   value={formData.status}
-                  onChange={handleFormChange}
+                  onChange={(e) => {
+                    handleFormChange(e);
+                  }}
                   required
                 >
                   <option value="Đang xử lý">Đang xử lý</option>
@@ -298,9 +288,11 @@ const handleAddOrder = (e: React.FormEvent) => {
                 </select>
 
                 <div className={styles.formActions}>
-                  <button type="submit" className={styles.submitBtn}>
-                    {isAdding ? "Thêm" : "Cập nhật"}
-                  </button>
+                  {isAdding && (
+                    <button type="submit" className={styles.submitBtn}>
+                      Thêm
+                    </button>
+                  )}
                   <button
                     type="button"
                     className={styles.cancelBtn}

@@ -23,31 +23,20 @@ type DiscountUsage = {
 export default function MarketingPage() {
   const [discounts, setDiscounts] = useState<Discount[]>([
     {
-      id: 1,
-      code: "SALE 20%",
-      condition: "Giảm 20% cho đơn từ 500.000₫",
-      quantity: 100,
-      expiry: "2025-06-30",
+      id: 0,
+      code: "",
+      condition: "",
+      quantity: 0,
+      expiry: "",
     },
-    {
-      id: 2,
-      code: "FREESHIP50",
-      condition: "Miễn phí ship cho đơn từ 300.000₫",
-      quantity: 50,
-      expiry: "2025-04-10",
-    },
+    
   ]);
 
   const [usageHistory, setUsageHistory] = useState<DiscountUsage[]>([
     {
-      date: "2025-04-15",
-      code: "SALE20",
-      status: "Hết Mã",
-    },
-    {
-      date: "2025-04-17",
-      code: "FREESHIP50",
-      status: "Hết Mã",
+      date: "",
+      code: "",
+      status: "",
     },
   ]);
 

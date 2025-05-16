@@ -21,26 +21,15 @@ type Product = {
 export default function InventoryPage() {
  const [products, setProducts] = useState<Product[]>([
    {
-     id: 1,
-     name: "Áo thun trắng",
-     supplier: "CÔNG TY A",
-     quantity: 120,
-     price: "200.000",
-     size: "XL",
-     material: "Cotton",
-     color: "Trắng",
-     status: "Đang bán",
-   },
-   {
-     id: 2,
-     name: "Quần jean xanh",
-     supplier: "CÔNG TY A",
-     quantity: 50,
-     price: "200.000",
-     size: "XL",
-     material: "Denim",
-     color: "Xanh",
-     status: "Đang bán",
+     id: 0,
+     name: "",
+     supplier: "",
+     quantity: 0,
+     price: "",
+     size: "",
+     material: "",
+     color: "",
+     status: "",
    },
  ]);
 
@@ -420,25 +409,11 @@ const updated = products.map((p) =>
                </thead>
                <tbody>
                  <tr>
-                   <td>XK001</td>
-                   <td>Áo Vest Nam</td>
-                   <td>5</td>
-                   <td>2024-04-10</td>
-                   <td>Nhập Lô Hàng Vest Từ Công Ty TNHH A</td>
-                 </tr>
-                 <tr>
-                   <td>XK002</td>
-                   <td>Đầm Dạo Phố </td>
-                   <td>3</td>
-                   <td>2024-04-12</td>
-                   <td>Nhập Lô Hàng Đầm Nhiều Mẫu Từ Tập Đoàn Chuyên Sản Xuất Đầm AB</td>
-                 </tr>
-                 <tr>
-                   <td>XK003</td>
-                   <td>Áo Dài</td>
-                   <td>3</td>
-                   <td>2024-04-12</td>
-                   <td>Nhập Lô Hàng Áo Dài Lụa Từ Công Ty TTL O</td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
                  </tr>
                </tbody>
              </table>

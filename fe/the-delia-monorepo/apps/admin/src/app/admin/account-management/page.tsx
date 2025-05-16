@@ -46,31 +46,13 @@ export default function AccountManagement() {
 
  const [accounts, setAccounts] = useState<Account[]>([
    {
-     id: 1,
-     name: "Nguyễn Văn A",
-     phone: "0901234567",
-     email: "a.nguyen@gmail.com",
-     role: "Admin",
-     status: "Hoạt động",
-     address: "123 Đường ABC, Quận 1",
-   },
-   {
-     id: 2,
-     name: "Trần Thị B",
-     phone: "0902345678",
-     email: "b.tran@gmail.com",
-     role: "Nhân viên",
-     status: "Hoạt động",
-     address: "456 Đường DEF, Quận 2",
-   },
-   {
-     id: 3,
-     name: "Lê Thị C",
-     phone: "0903456789",
-     email: "c.le@gmail.com",
-     role: "Khách hàng",
-     status: "Hoạt động",
-     address: "789 Đường XYZ, Quận 3",
+     id: 0,
+     name: "",
+     phone: "",
+     email: "",
+     role: "",
+     status: "",
+     address: "",
    },
  ]);
 

@@ -6,7 +6,6 @@ import Header from "@shared/components/Header";
 
 import styles from "./category.module.css";
 
-
 type Product = {
   id: number;
   name: string;
@@ -20,36 +19,19 @@ type Product = {
   color: string; // Màu sắc
 };
 
-
-
 export default function CategoryPage() {
   const [products, setProducts] = useState<Product[]>([
     {
-      id: 1,
-      name: "Vest-nam",
-      description:
-        "Vest-nam xám kèm phụ kiện cavat nơ tôn lên nét trẻ trung thanh lịch ",
-      price: "1000000",
-      image:
-        "https://th.bing.com/th/id/OIP.y2sQEkr1DaeZZP2_TEOE9gDIEs?rs=1&pid=ImgDetMain",
-      quantity: 10,
-      size: "XL",
-      category: "Hàng Nam-Vest nam",
-      material: "vải cao cấp",
-      color: "xám",
-    },
-    {
-      id: 2,
-      name: "Áo dài Việt",
-      description: "Áo dài là một loại trang phục truyền thống của Việt Nam...",
-      price: "300000",
-      image:
-        "https://anhvienmimosa.com.vn/wp-content/uploads/2023/02/ao-dai-cuoi-truyen-thong-xua-21-534x800.jpg",
-      quantity: 20,
-      size: "L",
-      category: "Hàng Nữ-Áo dài",
-      material: "Lụa cao cấp",
-      color: "trắng ",
+      id: 0,
+      name: "",
+      description: "",
+      price: "",
+      image: "",
+      quantity: 0,
+      size: "",
+      category: "",
+      material: "",
+      color: "",
     },
   ]);
 
@@ -64,33 +46,17 @@ export default function CategoryPage() {
     category: "",
     material: "",
     color: "",
-    categoryRoot: '', 
+    categoryRoot: "",
   });
 
   const [categories, setCategories] = useState([
-    { id: 1, name: "Vest nam", classification: "HÀNG NAM" },
-    { id: 2, name: "Gi-le", classification: "HÀNG NAM" },
-    { id: 3, name: "Sơ Mi Dài/Ngắn Tay", classification: "HÀNG NAM" },
-    { id: 4, name: "Polo", classification: "HÀNG NAM" },
-    { id: 5, name: "Quần Tây", classification: "HÀNG NAM" },
-    { id: 6, name: "Quần/Áo Jeans", classification: "HÀNG NAM" },
-    { id: 7, name: "Váy Dài/Ngắn", classification: "HÀNG NỮ" },
-    { id: 8, name: "Đầm Dạo Phố", classification: "HÀNG NỮ" },
-    { id: 9, name: "Áo Dài", classification: "HÀNG NỮ" },
-    { id: 10, name: "Áo/Quần Jeans", classification: "HÀNG NỮ" },
-    { id: 11, name: "Áo Phông", classification: "HÀNG MỚI" },
-    { id: 12, name: "Quần Short Nam", classification: "HÀNG MỚI" },
-    { id: 13, name: "Quần Short Nữ", classification: "HÀNG MỚI" },
-    { id: 14, name: "Áo Len Nam/Nữ", classification: "HÀNG MỚI" },
-    { id: 15, name: "Áo Tank Nam/Nữ", classification: "HÀNG MỚI" },
+    { id: 0, name: "", classification: "" },
   ]);
-
 
   const [isEditing, setIsEditing] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-
 
   const [newCategory, setNewCategory] = useState({
     name: "",
@@ -129,7 +95,6 @@ export default function CategoryPage() {
   };
 
   const [priceFilter, setPriceFilter] = useState<string>(""); // ví dụ: "<500000", "500000-1000000", ">1000000"
- 
 
   const handleDeleteCategory = (id: number) => {
     setCategories((prevCategories) =>
@@ -137,19 +102,19 @@ export default function CategoryPage() {
     );
   };
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-  
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-      ...(name === 'category' && {
-        categoryRoot: categoryMap[value] || '',
+      ...(name === "category" && {
+        categoryRoot: categoryMap[value] || "",
       }),
     }));
   };
-  
 
   const resetForm = () => {
     setFormData({
@@ -163,7 +128,7 @@ export default function CategoryPage() {
       category: "",
       material: "",
       color: "",
-      categoryRoot: '', 
+      categoryRoot: "",
     });
   };
 
@@ -197,31 +162,30 @@ export default function CategoryPage() {
       category: product.category,
       material: product.material,
       color: product.color,
-      categoryRoot: categoryMap[product.category] || '',
+      categoryRoot: categoryMap[product.category] || "",
     });
     setIsEditing(true);
   };
 
   const categoryMap: Record<string, string> = {
-    'Vest-Nam': 'HÀNG NAM',
-    'Ghi-Lê': 'HÀNG NAM',
-    'Sơ Mi Dài/Ngắn Tay': 'HÀNG NAM',
-    'PoLo': 'HÀNG NAM',
-    'Quần Tây': 'HÀNG NAM',
-    'Quần/Áo Jeans': 'HÀNG NAM',
-  
-    'VÁY NGẮN/DÀI': 'HÀNG NỮ',
-    'ĐẦM DẠO PHỐ': 'HÀNG NỮ',
-    'ÁO DÀI': 'HÀNG NỮ',
-    'ÁO/QUẦN JEANS': 'HÀNG NỮ',
-  
-    'ÁO PHÔNG': 'HÀNG MỚI',
-    'QUẦN SHORT NAM': 'HÀNG MỚI',
-    'QUẦN SHORT NỮ': 'HÀNG MỚI',
-    'ÁO TANK NAM/NỮ': 'HÀNG MỚI',
-    'ÁO LEN NAM/NỮ': 'HÀNG MỚI',
+    "Vest-Nam": "HÀNG NAM",
+    "Ghi-Lê": "HÀNG NAM",
+    "Sơ Mi Dài/Ngắn Tay": "HÀNG NAM",
+    PoLo: "HÀNG NAM",
+    "Quần Tây": "HÀNG NAM",
+    "Quần/Áo Jeans": "HÀNG NAM",
+
+    "VÁY NGẮN/DÀI": "HÀNG NỮ",
+    "ĐẦM DẠO PHỐ": "HÀNG NỮ",
+    "ÁO DÀI": "HÀNG NỮ",
+    "ÁO/QUẦN JEANS": "HÀNG NỮ",
+
+    "ÁO PHÔNG": "HÀNG MỚI",
+    "QUẦN SHORT NAM": "HÀNG MỚI",
+    "QUẦN SHORT NỮ": "HÀNG MỚI",
+    "ÁO TANK NAM/NỮ": "HÀNG MỚI",
+    "ÁO LEN NAM/NỮ": "HÀNG MỚI",
   };
-  
 
   const handleSaveEdit = () => {
     const updated = products.map((p) =>
@@ -250,23 +214,20 @@ export default function CategoryPage() {
     }
   };
 
-const filtered = products.filter((p) => {
-  const matchesSearch = p.name
-    .toLowerCase()
-    .includes(searchQuery.toLowerCase());
+  const filtered = products.filter((p) => {
+    const matchesSearch = p.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
 
-  const price = Number(p.price);
-  let matchesPrice = true;
-  if (priceFilter === "<500000") matchesPrice = price < 500000;
-  else if (priceFilter === "500000-1000000")
-    matchesPrice = price >= 500000 && price <= 1000000;
-  else if (priceFilter === ">1000000") matchesPrice = price > 1000000;
+    const price = Number(p.price);
+    let matchesPrice = true;
+    if (priceFilter === "<500000") matchesPrice = price < 500000;
+    else if (priceFilter === "500000-1000000")
+      matchesPrice = price >= 500000 && price <= 1000000;
+    else if (priceFilter === ">1000000") matchesPrice = price > 1000000;
 
-  return matchesSearch && matchesPrice;
-});
-
-
-
+    return matchesSearch && matchesPrice;
+  });
 
   return (
     <div className={styles.container}>
@@ -382,12 +343,12 @@ const filtered = products.filter((p) => {
               </optgroup>
             </select>
             <input
-                name="categoryRoot"
-                placeholder="Danh mục gốc"
-                value={formData.categoryRoot}
-                readOnly
-                className={styles.readOnlyInput}
-              />
+              name="categoryRoot"
+              placeholder="Danh mục gốc"
+              value={formData.categoryRoot}
+              readOnly
+              className={styles.readOnlyInput}
+            />
             <div className={styles.formActions}>
               <button type="submit" className={styles.submitBtn}>
                 Thêm Sản Phẩm
@@ -410,7 +371,6 @@ const filtered = products.filter((p) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className={styles.searchInput}
-              
             />
 
             <div className={styles.filters}>
@@ -516,39 +476,63 @@ const filtered = products.filter((p) => {
           <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
               <h3>Chỉnh sửa sản phẩm</h3>
-              <input disabled value={formData.name} />
+              <input
+                name="name"
+                placeholder="Tên sản phẩm"
+                value={formData.name}
+                onChange={handleChange}
+                disabled
+                className={styles.readOnlyInput}
+              />
               <input
                 name="description"
+                placeholder="Mô tả"
                 value={formData.description}
                 onChange={handleChange}
-              />
-              <input
-                name="material"
-                value={formData.material}
-                onChange={handleChange}
-              />
-              <input
-                name="color"
-                value={formData.color}
-                onChange={handleChange}
+                required
               />
               <input
                 name="price"
+                placeholder="Giá bán (VNĐ)"
                 value={formData.price}
                 onChange={handleChange}
+                required
               />
               <input
                 name="image"
+                placeholder="Link hình ảnh"
                 value={formData.image}
                 onChange={handleChange}
+                required
+              />
+              <input
+                name="material"
+                placeholder="Chất liệu"
+                value={formData.material}
+                onChange={handleChange}
+                required
+              />
+              <input
+                name="color"
+                placeholder="Màu sắc"
+                value={formData.color}
+                onChange={handleChange}
+                required
               />
               <input
                 name="quantity"
                 type="number"
+                placeholder="Số lượng"
                 value={formData.quantity}
                 onChange={handleChange}
+                required
               />
-              <select name="size" value={formData.size} onChange={handleChange}>
+              <select
+                name="size"
+                value={formData.size}
+                onChange={handleChange}
+                required
+              >
                 <option value="">Chọn size</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
@@ -560,12 +544,38 @@ const filtered = products.filter((p) => {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
+                required
               >
-                <option value="">Chọn danh mục</option>
-                {/* same optgroup here */}
+                <option value="">Chọn danh mục con</option>
+                <optgroup label="HÀNG NAM">
+                  <option value="Vest-Nam">Vest-Nam</option>
+                  <option value="Ghi-Lê">Ghi-Lê</option>
+                  <option value="Sơ Mi Dài/Ngắn Tay">Sơ Mi Dài/Ngắn Tay</option>
+                  <option value="PoLo">Polo</option>
+                  <option value="Quần Tây">Quần Tây</option>
+                  <option value="Quần/Áo Jeans">Quần/Áo Jeans</option>
+                </optgroup>
+                <optgroup label="HÀNG NỮ">
+                  <option value="VÁY NGẮN/DÀI">VÁY NGẮN/DÀI</option>
+                  <option value="ĐẦM DẠO PHỐ">ĐẦM DẠO PHỐ</option>
+                  <option value="ÁO DÀI">ÁO DÀI</option>
+                  <option value="ÁO/QUẦN JEANS">ÁO/QUẦN JEANS</option>
+                </optgroup>
+                <optgroup label="HÀNG MỚI">
+                  <option value="ÁO PHÔNG">ÁO PHÔNG</option>
+                  <option value="QUẦN SHORT NAM">QUẦN SHORT NAM</option>
+                  <option value="QUẦN SHORT NỮ">QUẦN SHORT NỮ</option>
+                  <option value="ÁO TANK NAM/NỮ">ÁO TANK NAM/NỮ</option>
+                  <option value="ÁO LEN NAM/NỮ">ÁO LEN NAM/NỮ</option>
+                </optgroup>
               </select>
-
-             
+              <input
+                name="categoryRoot"
+                placeholder="Danh mục gốc"
+                value={formData.categoryRoot}
+                readOnly
+                className={styles.readOnlyInput}
+              />
 
               <div className={styles.modalActions}>
                 <button onClick={handleSaveEdit} className={styles.submitBtn}>
@@ -596,7 +606,7 @@ const filtered = products.filter((p) => {
                   name="name"
                   value={newCategory.name}
                   onChange={handleCategoryChange}
-                  placeholder="Tên Danh Mục mới"
+                  placeholder="Tên Danh Mục Gốc Mới"
                 />
 
                 {/* Khung nhập danh mục mới */}
@@ -605,7 +615,7 @@ const filtered = products.filter((p) => {
                   name="classification"
                   value={newCategory.classification}
                   onChange={handleCategoryChange}
-                  placeholder="Tên Sản Phẩm mới"
+                  placeholder="Tên Danh Mục Con Mới"
                 />
 
                 {/* Nút thêm */}

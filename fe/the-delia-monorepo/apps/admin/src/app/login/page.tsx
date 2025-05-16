@@ -6,17 +6,12 @@ import styles from "./login.module.css";
 
 const fakeUsers = [
   {
-    email: "admin@gmail.com",
-    password: "a121212",
-    name: "Admin Nguyễn",
-    role: "admin",
+    email: "",
+    password: "",
+    name: "",
+    role: "",
   },
-  {
-    email: "nhanvien@gmail.com",
-    password: "1234567890",
-    name: "Nhân viên Trần",
-    role: "employee",
-  },
+ 
 ];
 
 export default function LoginPage() {

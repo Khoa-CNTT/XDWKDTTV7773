@@ -24,31 +24,24 @@ type FilterStatus = "all" | "active" | "expired";
 export default function PromotionPage() {
   const [discounts, setDiscounts] = useState<Discount[]>([
     {
-      id: 1,
-      code: "SALE20",
-      condition: "Giảm 20% cho đơn từ 500000",
-      quantity: 100,
-      expiry: "2025-06-30",
-    },
-    {
-      id: 2,
-      code: "FREESHIP50",
-      condition: "Miễn phí ship cho đơn từ 300000",
-      quantity: 50,
-      expiry: "2025-04-10",
+      id: 0,
+      code: "",
+      condition: "",
+      quantity: 0,
+      expiry: "",
     },
   ]);
 
   const [usageHistory, setUsageHistory] = useState<DiscountUsage[]>([
     {
-      date: "2025-04-15",
-      code: "SALE20",
-      status: "Hết Mã",
+      date: "",
+      code: "",
+      status: "",
     },
     {
-      date: "2025-04-17",
-      code: "FREESHIP50",
-      status: "Hết Mã",
+      date: "",
+      code: "",
+      status: "",
     },
   ]);
 

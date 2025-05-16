@@ -18,19 +18,7 @@ import {
 
 // Dữ liệu mẫu (sau này thay bằng API)
 const rawData = [
-  { date: "20/03/2025", visits: 150, storeVisits: 90 },
-  { date: "21/03/2025", visits: 80, storeVisits: 40 },
-  { date: "22/03/2025", visits: 270, storeVisits: 180 },
-  { date: "23/03/2025", visits: 90, storeVisits: 70 },
-  { date: "24/03/2025", visits: 130, storeVisits: 110 },
-  { date: "25/03/2025", visits: 100, storeVisits: 85 },
-  { date: "26/03/2025", visits: 70, storeVisits: 60 },
-  { date: "27/03/2025", visits: 65, storeVisits: 50 },
-  { date: "28/03/2025", visits: 90, storeVisits: 60 },
-  { date: "29/03/2025", visits: 110, storeVisits: 75 },
-  { date: "30/03/2025", visits: 95, storeVisits: 55 },
-  { date: "31/03/2025", visits: 105, storeVisits: 65 },
-  { date: "01/04/2025", visits: 88, storeVisits: 45 },
+  { date: "", visits: 0, storeVisits: 0 },
 ];
 
 export default function DashboardPage() {
@@ -89,7 +77,7 @@ export default function DashboardPage() {
         <Header />
         <div className={styles.chartContainer}>
           <div className="statistics-header">
-            <h2>Thống kê lượt truy cập của khách trong 7 ngày</h2>
+            <h2>Thống kê cửa hàng trong 7 ngày</h2>
           </div>
 
           <div className={styles.filterContainer}>
@@ -105,7 +93,7 @@ export default function DashboardPage() {
           </div>
 
           <div className={styles.chartHeader}>
-            Biểu đồ thống kê lượt truy cập từ{" "}
+            Biểu đồ thống kê từ{" "}
             <strong>{selectedDates[0].format("DD/MM/YYYY")}</strong> đến{" "}
             <strong>{selectedDates[6].format("DD/MM/YYYY")}</strong>
           </div>
@@ -139,7 +127,7 @@ export default function DashboardPage() {
                 <Line
                   type="monotone"
                   dataKey="storeVisits"
-                  name="Lượt ghé cửa hàng"
+                  name="Sản Phẩm Bán Chạy"
                   stroke="#e36c09"
                   strokeWidth={2}
                 />

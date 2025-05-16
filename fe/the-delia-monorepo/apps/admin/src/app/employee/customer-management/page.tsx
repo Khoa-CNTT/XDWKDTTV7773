@@ -29,30 +29,22 @@ export default function CustomerPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [customers, setCustomers] = useState<Customer[]>([
     {
-      id: 1,
-      name: "Phạm Văn C",
-      phone: "0903456789",
-      email: "phamc@gmail.com",
-      group: "Khách vàng",
+      id: 0,
+      name: "",
+      phone: "",
+      email: "",
+      group: "",
       isLocked: false,
       purchases: [
         {
-          orderId: "DH001",
-          productName: "Áo sơ mi nam",
-          purchaseDate: "2024-12-20",
-          totalAmount: "500,000₫",
+          orderId: "",
+          productName: "",
+          purchaseDate: "",
+          totalAmount: "",
         },
       ],
     },
-    {
-      id: 2,
-      name: "Hồ H",
-      phone: "0903456789",
-      email: "hh@gmail.com",
-      group: "Khách mới",
-      isLocked: false,
-      purchases: [],
-    },
+    
   ]);
 
   const handleLock = (id: number) => {

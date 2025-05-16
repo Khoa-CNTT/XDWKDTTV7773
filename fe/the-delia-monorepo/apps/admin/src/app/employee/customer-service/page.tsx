@@ -22,23 +22,12 @@ type Message = {
 export default function CustomerServicePage() {
   const [customers, setCustomers] = useState<Customer[]>([
     {
-      id: 1,
-      name: "Nguyễn Văn A",
+      id: 0,
+      name: "",
       status: "waiting",
-      lastMessageTime: "2025-04-27 09:00",
+      lastMessageTime: "",
     },
-    {
-      id: 2,
-      name: "Trần Thị B",
-      status: "done",
-      lastMessageTime: "2025-04-26 14:30",
-    },
-    {
-      id: 3,
-      name: "Phạm Văn C",
-      status: "waiting",
-      lastMessageTime: "2025-04-27 10:15",
-    },
+
   ]);
 
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(

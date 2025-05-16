@@ -15,41 +15,33 @@ const BarChartBox = dynamic(() => import("@shared/components/BarChartBox"), {
 });
 
 const bestSellingData = [
-  { name: "Sản phẩm A", value: 300, color: "#2a52f5" },
-  { name: "Sản phẩm B", value: 250, color: "#22c55e" },
-  { name: "Sản phẩm C", value: 280, color: "#f59e0b" },
-  { name: "Sản phẩm D", value: 320, color: "#f97316" },
+  { name: "", value: 0, color: "#2a52f5" },
+  { name: "", value: 0, color: "#22c55e" },
+  { name: "", value: 0, color: "#f59e0b" },
+  { name: "", value: 0, color: "#f97316" },
 ];
 
 const revenueData = [
-  { name: "Tuần 1", value: 7000 },
-  { name: "Tuần 2", value: 9000 },
-  { name: "Tuần 3", value: 8000 },
-  { name: "Tuần 4", value: 5000 },
+  { name: "", value: 0 },
+  { name: "", value: 0 },
+  { name: "", value: 0 },
+  { name: "", value: 0 },
 ];
 
 const productStats = [
   {
-    id: "01",
-    name: "Áo vest",
-    quantity: 300,
-    sold: 60,
-    imported: 200,
-    date: "12/3/2025",
-  },
-  {
-    id: "02",
-    name: "Áo sơ mi",
-    quantity: 250,
-    sold: 30,
-    imported: 100,
-    date: "13/3/2025",
+    id: "",
+    name: "",
+    quantity: 0,
+    sold: 0,
+    imported: 0,
+    date: "",
   },
 ];
 
 export default function StatisticPage() {
-  const [selectedMonth, setSelectedMonth] = useState("Tháng 3");
-  const [selectedYear, setSelectedYear] = useState("2025");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
@@ -79,19 +71,19 @@ export default function StatisticPage() {
         <div className={styles.statCards}>
           <div className={`${styles.card} ${styles.orange}`}>
             <div className={styles.cardTitle}>Tổng số khách hàng</div>
-            <div className={styles.cardValue}>178 Khách hàng</div>
+            <div className={styles.cardValue}> Khách hàng</div>
           </div>
           <div className={`${styles.card} ${styles.blue}`}>
             <div className={styles.cardTitle}>Tổng số sản phẩm</div>
-            <div className={styles.cardValue}>610 Sản phẩm</div>
+            <div className={styles.cardValue}> Sản phẩm</div>
           </div>
           <div className={`${styles.card} ${styles.red}`}>
             <div className={styles.cardTitle}>Tổng số đơn hàng</div>
-            <div className={styles.cardValue}>60 Đơn hàng</div>
+            <div className={styles.cardValue}> Đơn hàng</div>
           </div>
           <div className={`${styles.card} ${styles.green}`}>
             <div className={styles.cardTitle}>Tổng số ghé thăm</div>
-            <div className={styles.cardValue}>1258 lượt truy cập</div>
+            <div className={styles.cardValue}> lượt truy cập</div>
           </div>
         </div>
 

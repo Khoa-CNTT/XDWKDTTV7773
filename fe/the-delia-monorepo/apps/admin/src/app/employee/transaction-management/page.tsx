@@ -26,22 +26,12 @@ export default function TransactionManagementPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [transactions, setTransactions] = useState<Transaction[]>([
     {
-      id: 101010,
-      orderCode: "HD10001",
-      customerName: "Nguyễn Văn A",
-      products: [
-        { name: "Vest nam cao cấp", quantity: 2, price: 2500000 },
-        { name: "Quần Tây", quantity: 1, price: 700000 },
-      ],
-      status: "CHƯA THANH TOÁN",
-    },
-    {
-      id: 201010,
-      orderCode: "HD10002",
-      customerName: "Trần Thị B",
-      products: [{ name: "Áo dài cưới", quantity: 1, price: 3200000 }],
-      status: "ĐÃ THANH TOÁN",
-      paymentMethod: "Tiền mặt", // <<-- ví dụ giao dịch đã thanh toán rồi
+      id: 0,
+      orderCode: "",
+      customerName: "",
+      products: [{ name: "", quantity: 0, price: 0 }],
+      status: "",
+      paymentMethod: "", // <<-- ví dụ giao dịch đã thanh toán rồi
     },
   ]);
 
@@ -129,14 +119,14 @@ export default function TransactionManagementPage() {
     showNotification("Thanh toán thành công!");
   };
 
-const handlePrintInvoice = async (transaction: Transaction) => {
-  const printWindow = window.open("", "_blank");
-  if (!printWindow) return;
+  const handlePrintInvoice = async (transaction: Transaction) => {
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return;
 
-  const qrData = `https://your-store-link.com/review?order=${transaction.orderCode}`;
-  const qrCodeDataUrl = await QRCode.toDataURL(qrData);
+    const qrData = `https://your-store-link.com/review?order=${transaction.orderCode}`;
+    const qrCodeDataUrl = await QRCode.toDataURL(qrData);
 
-  const html = `
+    const html = `
     <html>
       <head>
         <title>Hóa Đơn - THE DELIA</title>
@@ -202,8 +192,8 @@ const handlePrintInvoice = async (transaction: Transaction) => {
         </div>
 
         <div class="qr">
-          <img src="${qrCodeDataUrl}" width="120" height="120" alt="QR Code" />
-          <p>Quét mã để đánh giá cửa hàng</p>
+           <img src="/QRVNpay.jpg" width="120" height="120" alt="QR VNPay" />
+           <p>Quét mã VNPay để thanh toán</p>
         </div>
 
         <div class="print-button" onclick="window.print(); this.style.display='none'">🖨️ In hóa đơn</div>
@@ -211,10 +201,10 @@ const handlePrintInvoice = async (transaction: Transaction) => {
     </html>
   `;
 
-  printWindow.document.open();
-  printWindow.document.write(html);
-  printWindow.document.close();
-};
+    printWindow.document.open();
+    printWindow.document.write(html);
+    printWindow.document.close();
+  };
 
   return (
     <div className={styles.container}>
