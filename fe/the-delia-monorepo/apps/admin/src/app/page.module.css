@@ -1,0 +1,40 @@
+.page {
+  height: 100vh;
+  width: 100%;
+  background-image: url('/background.jpg'); /* Bạn thay đổi path hình nền tùy ý */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5); /* overlay tối */
+  padding: 40px;
+  border-radius: 16px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #0070f3;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background-color: #005bb5;
+}
