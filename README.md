@@ -1,19 +1,48 @@
-TOÀN BỘ DỰ ÁN WEBSITE KINH DOANH THỜI TRANG CỦA NHÓM 37 NẰM BÊN NHÁNH Master2 
-XÂY DỰNG WEBSITE KINH DOANH THỜI TRANG VÀ TÍCH HỢP AI CHATBOT ĐỂ TƯ VẤN KHÁCH HÀNG BUILD A FASHION BUSINESS WEBSITE AND INTEGRATE AI CHATBOT TO ADVISE CUSTOMERS
+TOÀN BỘ DỰ ÁN WEBSITE KINH DOANH THỜI TRANG CỦA NHÓM 37 NẰM BÊN NHÁNH Master2 NÀY.
+XÂY DỰNG WEBSITE KINH DOANH THỜI TRANG VÀ TÍCH HỢP AI CHATBOT ĐỂ TƯ VẤN KHÁCH HÀNG
+**BUILD A FASHION BUSINESS WEBSITE AND INTEGRATE AI CHATBOT TO ADVISE CUSTOMERS**
+
+**Công Nghệ Sử Dụng**
+## Frontend 100%
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white)
+![NextJS](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+
+## Backend HOÀN THIỆN
+## Backend 100%
+![NodeJS](https://img.shields.io/badge/NodeJS-339933?style=flat&logo=node.js&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=nestjs&logoColor=white)
+
+## Database HOÀN THIỆN
+## Database 100%
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
+
+## Chatbot HOÀN THIỆN
+## Chatbot 10100%
+![Dialogflow](https://img.shields.io/badge/Dialogflow-FF9800?style=flat&logo=dialogflow&logoColor=white)
+![Microsoft Copilot](https://img.shields.io/badge/Microsoft%20Copilot-0078D4?style=flat&logo=microsoft&logoColor=white)
+
+## Payment Gateway HOÀN THIỆN
+## Payment Gateway 100%
+![VNPay](https://img.shields.io/badge/VNPay-DC1D1D?style=flat&logo=vnPay&logoColor=white)
+
+TOÀN BỘ DỰ ÁN WEBSITE KINH DOANH THỜI TRANG CỦA NHÓM 37 NẰM BÊN NHÁNH Master2 XÂY DỰNG WEBSITE KINH DOANH THỜI TRANG VÀ TÍCH HỢP AI CHATBOT ĐỂ TƯ VẤN KHÁCH HÀNG BUILD A FASHION BUSINESS WEBSITE AND INTEGRATE AI CHATBOT TO ADVISE CUSTOMERS
 
 Công Nghệ Sử Dụng
 
-Frontend 100% React NextJS TypeScript
+Frontend 100% 
+NextJS TypeScript
 
-Backend 100% NodeJS NestJS
+Backend 100% 
+NodeJS NestJS TypeScriptt
 
 Database 100% MySQL
 
-Chatbot 100% Dialogflow Microsoft Copilot
+Chatbot 100% 
+Dialogflow Microsoft Copilot
 
 Payment Gateway 100% VNPay
 
-Hosting AWS Firebase
 
 DevOps & Tools GitHub Postman VSCode Trello Figma Scrum
 
@@ -31,11 +60,47 @@ Kết quả nhận được là
 •	Website thương mại điện tử hoàn chỉnh cho doanh nghiệp tư nhân
 •	Hệ thống chatbot tự động trả lời tin nhắn, hỗ trợ khách hàng tìm kiếm
 •	Hệ thống thanh toán trực tuyến VNPay
-CÁC TÍNH NĂNG CHÍNH Quản lý: Quản lý thông tin cá nhân; Quản lý phân quyền; Quản lý kho; Quản lý danh mục; Quản lý thanh toán; Quản lý đơn hàng; Quản lý Maketing/ Khuyến mãi; Quản lý Thống kê.
+CÁC TÍNH NĂNG CHÍNH 
+Quản lý: 
+Quản lý thông tin cá nhân; 
+Quản lý phân quyền; 
+Quản lý kho; 
+Quản lý danh mục; 
+Quản lý thanh toán; 
+Quản lý đơn hàng; 
+Quản lý Maketing/ Khuyến mãi; 
+Quản lý Thống kê.
 
-Nhân viên: Đăng nhập; Quản lý thông tin cá nhân; Quản lý khách hàng; Quản lý đơn hàng; Quản lý sản phẩm; Quản lý Thanh toán; Quản lý khuyến mãi & giảm giá, Hỗ trợ và chăm sóc khách hàng.
-Khách hàng: Đăng ký & Xác thực tài khoản; Đăng nhập; Quản lý thông tin cá nhân; Mua Sắm; Quản lý giỏ hàng; Đặt hàng & Theo dõi đơn hàng; Xem hướng dẫn chọn size; Quản lý danh sách yêu thích; Liên hệ chăm sóc khách hàng; Xem voucher khuyến mãi / Nhận ưu đãi. CÁCH CHẠY FE , BE YÊU CẦU HỆ THỐNG • VISUAL STUDIO CODE
-• NEXT.JS : version MỚI NHẤT • NODE: version 20 TRỞ LÊN • NPM, NPX: version 11.2.0 • MY SQL WORKBENCH 8.0 CE • npm install --save @nestjs/swagger swagger-ui-express
+Nhân viên: 
+Đăng nhập;
+Quản lý thông tin cá nhân; 
+Quản lý khách hàng; 
+Quản lý đơn hàng; 
+Quản lý sản phẩm; 
+Quản lý Thanh toán; 
+Quản lý khuyến mãi & giảm giá, 
+Hỗ trợ và chăm sóc khách hàng.
+
+Khách hàng: 
+Đăng ký & Xác thực tài khoản; 
+Đăng nhập; 
+Quản lý thông tin cá nhân; 
+Mua Sắm; 
+Quản lý giỏ hàng; 
+Đặt hàng & Theo dõi đơn hàng; 
+Xem hướng dẫn chọn size; 
+Quản lý danh sách yêu thích; 
+Liên hệ chăm sóc khách hàng; 
+Xem voucher khuyến mãi / Nhận ưu đãi
+ 
+CÁCH CHẠY FE , BE 
+YÊU CẦU HỆ THỐNG 
+• VISUAL STUDIO CODE
+• NEXT.JS : version MỚI NHẤT 
+• NODE: version 20 TRỞ LÊN 
+• NPM, NPX: version 11.2.0 
+• MY SQL WORKBENCH 8.0 CE 
+• npm install --save @nestjs/swagger swagger-ui-express
 
 HƯỚNG DẪN CÀI ĐẶT Điều hướng đến thư mục FE:
 
@@ -43,7 +108,9 @@ cd fe
 
 *Cài đặt các dependencies: npm install npm run dev
 
-*Truy cập web, google: text hiện ra trang Users text hiện ra trang ADMIN
+*Truy cập web, google: http://localhost:3000 hiện ra trang Users 
+http://localhost:30011 hiện ra trang ADMIN
+
 
 HƯỚNG DẪN CÀI ĐẶT Điều hướng đến thư mục BE :
 
@@ -51,9 +118,14 @@ cd be
 
 *Cài đặt các dependencies: npm install npm run start:dev
 
-*Truy cập web, google: text hiện ra trang API
+*Truy cập web, google: http://localhost:44000 hiện ra trang API
 
-NHÓM 37_XDWKDTTV Nguyễn Phạm Quốc Hưng TRƯỞNG NHÓM Lê Quang Trường PHÓ NHÓM Phạm Xuân Hải Lê Duy Ngọc Võ Công Mạnh
+NHÓM 37_XDWKDTTV 
+Nguyễn Phạm Quốc Hưng TRƯỞNG NHÓM 
+Lê Quang Trường PHÓ NHÓM 
+Phạm Xuân Hải 
+Lê Duy Ngọc 
+Võ Công Mạnh
 
 This is a Next.js project bootstrapped with create-next-app.
 
@@ -63,8 +135,6 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
 # or
 bun dev
 Open http://localhost:3000 with your browser to see the result.
